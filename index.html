@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Musfiqur Rahman — AI Researcher & Developer</title>
+    <link rel="icon" type="image/png" href="img/fav2.png">
+    <link rel="shortcut icon" type="image/png" href="img/fav2.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#7c3aed',
+                        accent: '#f59e0b',
+                        neon: '#a3e635',
+                        ink: '#09090b',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        :root { --col: rgba(255,255,255,0.04); --border: rgba(255,255,255,0.08); --text-muted: #71717a; --text-dim: #a1a1aa; }
+        html { scroll-behavior: smooth; }
+        body { background: #050507; color: #f4f4f5; font-family: 'DM Sans', sans-serif; overflow-x: hidden; cursor: none; }
+
+        #cursor { width: 10px; height: 10px; background: #f59e0b; border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.1s ease; mix-blend-mode: difference; }
+        #cursor-ring { width: 36px; height: 36px; border: 1.5px solid rgba(245,158,11,0.5); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: all 0.15s ease; }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #050507; }
+        ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 10px; }
+
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #7c3aed, #f59e0b); z-index: 1000; transition: width 0.1s linear; }
+
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--border); }
+
+        .card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card:hover { border-color: rgba(124,58,237,0.4); background: rgba(124,58,237,0.06); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(124,58,237,0.12), 0 0 0 1px rgba(124,58,237,0.15); }
+
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+        .text-grad { background: linear-gradient(135deg, #c4b5fd 0%, #7c3aed 40%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .text-grad-amber { background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); opacity: 0.35; pointer-events: none; z-index: 0; }
+
+        #stars-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.5; }
+
+        .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+
+        .type-cursor::after { content: '|'; animation: blink 0.7s infinite; color: #f59e0b; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        @keyframes noticeBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+        .notice-blink { animation: noticeBlink 1.2s ease-in-out infinite; }
+        .notice-callout { background: linear-gradient(90deg, rgba(124,58,237,0.2), rgba(245,158,11,0.2)); border: 1px solid rgba(245,158,11,0.35); border-radius: 999px; padding: 6px 12px; box-shadow: 0 0 22px rgba(245,158,11,0.18); }
+
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1.5px; background: #f59e0b; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover { color: white; }
+
+        .skill-bar-fill { height: 3px; border-radius: 99px; background: linear-gradient(90deg, #7c3aed, #f59e0b); width: 0; transition: width 1.2s cubic-bezier(0.23, 1, 0.32, 1); }
+
+        .timeline-line { position: absolute; left: 16px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, rgba(124,58,237,0.5), transparent); }
+        .timeline-dot { width: 10px; height: 10px; background: #7c3aed; border-radius: 50%; border: 2px solid #050507; box-shadow: 0 0 0 3px rgba(124,58,237,0.3); flex-shrink: 0; }
+
+        .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 99px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+        .tag { padding: 4px 12px; border-radius: 99px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-size: 11px; color: #a1a1aa; }
+
+        .btn-primary { padding: 14px 32px; background: #7c3aed; color: white; font-weight: 700; font-family: 'Syne', sans-serif; border-radius: 12px; transition: all 0.3s; position: relative; overflow: hidden; }
+        .btn-primary::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent); opacity: 0; transition: opacity 0.3s; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,58,237,0.4); }
+        .btn-primary:hover::before { opacity: 1; }
+
+        .btn-outline { padding: 13px 32px; border: 1px solid rgba(255,255,255,0.12); color: #d4d4d8; font-weight: 600; font-family: 'Syne', sans-serif; border-radius: 12px; transition: all 0.3s; background: rgba(255,255,255,0.03); }
+        .btn-outline:hover { border-color: rgba(245,158,11,0.5); color: white; background: rgba(245,158,11,0.05); }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .proj-card { border-radius: 20px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02); transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; overflow: hidden; position: relative; }
+        .proj-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #7c3aed, #f59e0b); opacity: 0; transition: opacity 0.3s; }
+        .proj-card:hover::before { opacity: 1; }
+        .proj-card:hover { transform: translateY(-5px); border-color: rgba(124,58,237,0.3); box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,58,237,0.1); }
+
+        .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .modal-backdrop.open { display: flex; }
+        .modal-box { background: #0e0e14; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; width: 100%; max-width: 860px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: scale(0.95) translateY(20px); opacity: 0; transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
+        .modal-box.open { transform: scale(1) translateY(0); opacity: 1; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .float { animation: float 6s ease-in-out infinite; }
+
+        .cert-card { border-radius: 16px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02); padding: 20px; transition: all 0.3s ease; }
+        .cert-card:hover { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.03); }
+
+        .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #f59e0b; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .section-label::before { content: ''; width: 24px; height: 1px; background: #f59e0b; }
+
+        .stat-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1; }
+
+        @keyframes ring { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.2); opacity: 0; } }
+        .avail-ring { position: absolute; inset: 0; border-radius: 50%; background: #4ade80; animation: ring 2s ease-out infinite; }
+
+        .grid-bg { background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px; }
+
+        /* Work experience cards */
+        .exp-card { border-radius: 16px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02); transition: all 0.3s ease; }
+        .exp-card:hover { border-color: rgba(124,58,237,0.3); background: rgba(124,58,237,0.04); }
+
+        /* Cert grid scroll */
+        .cert-scroll { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    </style>
+</head>
+<body>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+    <div id="scroll-progress"></div>
+
+    <canvas id="stars-canvas"></canvas>
+    <div class="orb" style="width:500px;height:500px;top:-100px;right:-100px;background:rgba(124,58,237,0.12)"></div>
+    <div class="orb" style="width:400px;height:400px;bottom:20%;left:-100px;background:rgba(245,158,11,0.08)"></div>
+    <div class="orb" style="width:300px;height:300px;top:50%;right:10%;background:rgba(163,230,53,0.05)"></div>
+
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4">
+        <div class="glass rounded-2xl px-6 py-3 flex items-center gap-6 shadow-2xl max-w-3xl w-full justify-between">
+            <a href="#home" class="font-display font-800 text-white text-lg tracking-tight flex items-center gap-2">
+                <span class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-xs font-bold">MR</span>
+                <span class="hidden sm:inline">Musfiqur</span>
+            </a>
+            <div class="flex items-center gap-1">
+                <a href="#home" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Home</a>
+                <a href="#about" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">About</a>
+                <a href="#experience" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Experience</a>
+                <a href="#projects" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Research</a>
+                <a href="#certs" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Certs</a>
+                <a href="#contact" class="ml-2 btn-primary text-sm !px-5 !py-2 !rounded-xl">Let's Talk</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section id="home" class="min-h-screen relative flex items-center justify-center pt-24 grid-bg">
+        <div class="max-w-6xl w-full mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 z-10">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass">
+                    <span class="relative flex h-2 w-2">
+                        <span class="avail-ring"></span>
+                        <span class="relative w-2 h-2 rounded-full bg-green-400"></span>
+                    </span>
+                    <span class="text-xs font-semibold text-zinc-300 tracking-widest uppercase">Open to Collaboration</span>
+                </div>
+
+                <div>
+                    <h1 class="text-6xl md:text-7xl font-display font-extrabold leading-[1.05] tracking-tight">
+                        Hello,<br>I'm <span class="text-grad">Musfiqur</span>
+                    </h1>
+                    <p class="mt-4 text-xl text-zinc-400 font-light">
+                        CSE Undergrad &amp; Research Assistant focused on<br>
+                        <span id="typed-text" class="text-white font-medium type-cursor"></span>
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <a href="#projects" class="btn-primary flex items-center gap-2">
+                        View Research <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="cv/Md_Musfiqur_Rahman_CV.pdf" download class="btn-outline flex items-center gap-2">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                    <a href="https://github.com/musfiqurR661" target="_blank" class="btn-outline flex items-center gap-2">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-10 pt-4 border-t border-white/5">
+                    <div>
+                        <div class="stat-num text-grad">4+</div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Publications</p>
+                    </div>
+                    <div>
+                        <div class="stat-num text-grad-amber">4+</div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Awards</p>
+                    </div>
+                    <div>
+                        <div class="stat-num" style="color:#a3e635">6+</div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Projects</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Card -->
+            <div class="relative flex justify-center items-center h-[420px]">
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-amber-500/10 blur-2xl opacity-50 float"></div>
+                <div class="card w-full max-w-sm p-8 text-center cursor-pointer group relative z-10" onclick="openProfileModal()" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+                    <div class="relative inline-block mb-6">
+                        <!-- Profile image ring size: change w-32 h-32 here to make it smaller/bigger -->
+                        <div class="w-32 h-32 rounded-full p-0.5 bg-gradient-to-br from-primary via-violet-400 to-amber-400 mx-auto shadow-2xl">
+                            <img src="img/musfiq_2.png" class="w-full h-full rounded-full bg-zinc-900 object-cover" alt="Profile">
+                        </div>
+                        <span class="absolute bottom-1 right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-zinc-900"></span>
+                    </div>
+                    <h2 class="font-display text-xl font-bold text-white group-hover:text-grad transition-all">Md Musfiqur Rahman</h2>
+                    <p class="text-xs text-zinc-500 mt-1 mb-4">Head of Research · UIU App Forum</p>
+                    <div class="flex flex-wrap gap-2 justify-center mb-6">
+                        <span class="tag">AI/ML</span>
+                        <span class="tag">Computer Vision</span>
+                        <span class="tag">Robotics</span>
+                    </div>
+                    <div class="flex justify-center gap-4 mb-6">
+                        <a href="https://github.com/musfiqurR661" target="_blank" onclick="event.stopPropagation()" class="text-zinc-500 hover:text-white transition-colors text-lg"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/musfiqur661/" target="_blank" onclick="event.stopPropagation()" class="text-zinc-500 hover:text-blue-400 transition-colors text-lg"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/musfiq661/" target="_blank" onclick="event.stopPropagation()" class="text-zinc-500 hover:text-blue-500 transition-colors text-lg"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <div class="text-xs transition-colors flex items-center justify-center gap-2 notice-blink notice-callout">
+                        <i class="fas fa-expand-arrows-alt text-amber-300"></i>
+                        <span class="text-grad-amber font-semibold tracking-wide">Tap to expand profile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section id="about" class="py-28 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">About Me</div>
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-6">
+                        Building Intelligent Systems<br><span class="text-zinc-500">from First Principles</span>
+                    </h2>
+                    <p class="text-zinc-400 leading-relaxed mb-4">
+                        I'm a CSE undergraduate at United International University with a deep obsession for making machines perceive and understand the world. My research spans computer vision, deep learning, and biomedical informatics.
+                    </p>
+                    <p class="text-zinc-400 leading-relaxed">
+                        Outside of research, I build developer tools, competitive programming platforms, and student utilities that make everyday academic life easier.
+                    </p>
+
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="cert-card">
+                            <i class="fas fa-university text-primary mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">UIU</div>
+                            <div class="text-xs text-zinc-500">B.Sc. in CSE</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-map-marker-alt text-amber-400 mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">Dhaka, Bangladesh</div>
+                            <div class="text-xs text-zinc-500">Available globally</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-flask text-neon mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">Research Areas</div>
+                            <div class="text-xs text-zinc-500">CV · ML · Robotics</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-envelope text-primary mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">musfiqurm661</div>
+                            <div class="text-xs text-zinc-500">@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-display text-lg font-bold text-white mb-6">Technical Proficiency</h3>
+                    <div class="space-y-5" id="skill-bars">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Deep Learning & Computer Vision</span><span class="text-xs text-zinc-500">85%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="85"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Flutter & Mobile Development</span><span class="text-xs text-zinc-500">90%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Python & Data Science</span><span class="text-xs text-zinc-500">88%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="88"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Research & Technical Writing</span><span class="text-xs text-zinc-500">80%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="80"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Embedded Systems & Robotics</span><span class="text-xs text-zinc-500">72%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="72"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Web Development</span><span class="text-xs text-zinc-500">78%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="78"></div></div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-lg font-bold text-white mt-10 mb-4">Honors & Awards</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="cert-card border-yellow-500/20">
+                            <i class="fas fa-trophy text-yellow-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">Champion</div>
+                            <div class="text-xs text-zinc-500">SAD Lab Competition</div>
+                        </div>
+                        <div class="cert-card border-yellow-500/20">
+                            <i class="fas fa-trophy text-yellow-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">Champion</div>
+                            <div class="text-xs text-zinc-500">UIU CSE Project Show</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-medal text-zinc-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">1st Runner Up</div>
+                            <div class="text-xs text-zinc-500">DBMS Project Show</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-medal text-zinc-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">1st Runner Up</div>
+                            <div class="text-xs text-zinc-500">Software Engineering Lab</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TECH STACK ═══ -->
+    <section id="tools" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">My Arsenal</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-12">Tech <span class="text-zinc-600">& Frameworks</span></h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl group-hover:scale-110 transition-transform"><i class="fab fa-python"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Python</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-brain"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">TensorFlow</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-sky-500/10 flex items-center justify-center text-sky-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-mobile-alt"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Flutter</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-microchip"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Robotics</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-chart-bar"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Data Science</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center text-violet-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-eye"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Computer Vision</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl group-hover:scale-110 transition-transform"><i class="fab fa-js"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">JavaScript</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-fire"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">PyTorch</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-database"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">SQL / NoSQL</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-2xl group-hover:scale-110 transition-transform"><i class="fab fa-git-alt"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Git</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-robot"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">LLMs / VLMs</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-server"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Firebase</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ EXPERIENCE ═══ -->
+    <section id="experience" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <div class="section-label">Work History</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-12">Experience &amp; <span class="text-zinc-600">Roles</span></h2>
+
+            <div class="space-y-6">
+
+                <!-- UIU App Forum - Head of Research -->
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center text-primary flex-shrink-0">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Head of Research Unit</h3>
+                                <p class="text-sm text-zinc-500">UIU App Forum · Full-time · On-site</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-primary/10 text-primary border border-primary/20">Nov 2025 – Present</span>
+                            <p class="text-xs text-zinc-600 mt-1">5 mos · Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed ml-15">
+                        Led research-based and academic initiatives, supervising juniors and coordinating interdisciplinary collaborations across the forum's technical divisions.
+                    </p>
+                </div>
+
+                <!-- UIU App Forum - Associate -->
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-amber-500/15 flex items-center justify-center text-amber-400 flex-shrink-0">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Associate — Academic &amp; Growth</h3>
+                                <p class="text-sm text-zinc-500">UIU App Forum · Full-time · On-site</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-amber-500/10 text-amber-400 border border-amber-500/20">Sep 2024 – Nov 2025</span>
+                            <p class="text-xs text-zinc-600 mt-1">1 yr 3 mos · Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Organized workshops and technical sessions, supporting community growth and expanding the forum's academic reach.
+                    </p>
+                </div>
+
+                <!-- UIU App Forum - Junior Executive -->
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-green-500/15 flex items-center justify-center text-green-400 flex-shrink-0">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Junior Executive</h3>
+                                <p class="text-sm text-zinc-500">UIU App Forum · On-site</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-green-500/10 text-green-400 border border-green-500/20">Aug 2023 – Sep 2024</span>
+                            <p class="text-xs text-zinc-600 mt-1">1 yr 2 mos · Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Supported the student forum's technical and academic operations, assisting with app development and event coordination.
+                    </p>
+                </div>
+
+                <!-- Requin BD - Campus Ambassador -->
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-500/15 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Campus Ambassador</h3>
+                                <p class="text-sm text-zinc-500">Requin BD · Seasonal</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Nov 2023 – Sep 2024</span>
+                            <p class="text-xs text-zinc-600 mt-1">11 mos · Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">
+                        Represented Requin BD on campus, promoting the brand and driving student engagement through organized events and outreach initiatives.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TIMELINE ═══ -->
+    <section id="timeline" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <div class="section-label">My Journey</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-16">Education &amp; <span class="text-zinc-600">Milestones</span></h2>
+
+            <div class="relative pl-10">
+                <div class="timeline-line"></div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">B.Sc. in Computer Science & Engineering</h3>
+                            <span class="badge bg-primary/10 text-primary border border-primary/20">2022 – Present</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">United International University · Dhaka, Bangladesh ·</p>
+                        <p class="text-sm text-zinc-400">Pursuing CSE with a focus on AI, machine learning, and computer vision. Active research contributor and multiple-time competition winner.</p>
+                    </div>
+                </div>
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#06b6d4"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">HSC — Science</h3>
+                            <span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">2020 · GPA 5.00</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">Adhyapak Abdul Majid College</p>
+                        <p class="text-sm text-zinc-400">Completed science track with perfect GPA before pursuing CSE at UIU.</p>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#ec4899"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">SSC — Science</h3>
+                            <span class="badge bg-pink-500/10 text-pink-400 border border-pink-500/20">2018 · GPA 4.83</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">Homna Adarsha High School</p>
+                        <p class="text-sm text-zinc-400">Strong academic foundation in science and mathematics.</p>
+                    </div>
+                </div>
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#f59e0b"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">Head of Research Unit</h3>
+                            <span class="badge bg-amber-500/10 text-amber-400 border border-amber-500/20">Nov 2025 – Present</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">UIU App Forum</p>
+                        <p class="text-sm text-zinc-400">Leading research initiatives, supervising juniors and coordinating interdisciplinary collaborations in AI and technology.</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#a3e635"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">IEEE Publication — AutoTrack</h3>
+                            <span class="badge bg-green-500/10 text-green-400 border border-green-500/20">2024 · TENSYMP</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">IEEE · Document 11144993</p>
+                        <p class="text-sm text-zinc-400">First published paper: vehicle detection &amp; tracking from CCTV images using deep learning on a novel dataset.</p>
+                    </div>
+                </div>
+
+             
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ RESEARCH ═══ -->
+    <section id="projects" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">My Work</div>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-white mb-2">Research &amp; <span class="text-zinc-600">Development</span></h2>
+                    <p class="text-zinc-500 text-sm">Click any card for details.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="tag cursor-pointer hover:border-primary/50 hover:text-white transition-all active-filter" onclick="filterProjects('all', this)">All</button>
+                    <button class="tag cursor-pointer hover:border-primary/50 hover:text-white transition-all" onclick="filterProjects('research', this)">Research</button>
+                    <button class="tag cursor-pointer hover:border-primary/50 hover:text-white transition-all" onclick="filterProjects('dev', this)">Dev</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('autotrack')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><i class="fas fa-check-circle mr-1"></i>IEEE Published</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2 flex-grow">AutoTrack</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Vehicle detection &amp; route tracking from CCTV images using deep learning on a novel dataset.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Deep Learning</span><span class="tag">CV</span><span class="tag">IEEE</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('phylab')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-purple-500/10 text-purple-400 border border-purple-500/20"><i class="fas fa-hourglass-half mr-1"></i>Under Review</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">PhysiSenseVLR</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Multimodal VLM system for physics lab instrument comprehension in education.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">VLM</span><span class="tag">Multimodal</span><span class="tag">EdTech</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('dengue')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-blue-500/10 text-blue-400 border border-blue-500/20"><i class="fas fa-paper-plane mr-1"></i>Under Review</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">Dengue Diagnosis ML</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Interpretable ML for dengue diagnosis based on blood test patterns — explainable AI for healthcare.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">XAI</span><span class="tag">Healthcare</span><span class="tag">ML</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('defectomcu')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"><i class="fas fa-cog fa-spin mr-1"></i>In Progress</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">DefectoMCU</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Vision-based framework for automated physical defect detection in microcontroller boards.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Defect Detection</span><span class="tag">DL</span><span class="tag">AOI</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('uiutools')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"><i class="fas fa-globe mr-1"></i>Live</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">UIU Student Tools</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">CGPA calculator, tuition estimator &amp; study tools for UIU students. Used by hundreds.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Web Dev</span><span class="tag">EdTech</span><span class="tag">Utility</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('execode')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-orange-500/10 text-orange-400 border border-orange-500/20"><i class="fas fa-code mr-1"></i>Platform</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">ExeCode</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Competitive programming platform with compiler, problem sets &amp; leaderboard.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">CP</span><span class="tag">Platform</span><span class="tag">Algorithms</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CERTIFICATIONS ═══ -->
+    <section id="certs" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">Credentials</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-12">Courses &amp; <span class="text-zinc-600">Certifications</span></h2>
+
+            <!-- Coursera / Major platforms -->
+            <h3 class="font-display text-base font-bold text-zinc-400 mb-5 uppercase tracking-widest text-sm">Online Courses</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                <a href="#" class="cert-card flex gap-4 items-start hover:no-underline">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Deep Learning Specialization</div>
+                        <div class="text-xs text-zinc-500 mt-1">Coursera · deeplearning.ai</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Deep Learning</span></div>
+                    </div>
+                </a>
+                <a href="#" class="cert-card flex gap-4 items-start hover:no-underline">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Machine Learning</div>
+                        <div class="text-xs text-zinc-500 mt-1">Coursera · Stanford Online</div>
+                        <div class="mt-2"><span class="tag text-[10px]">ML</span></div>
+                    </div>
+                </a>
+                <a href="#" class="cert-card flex gap-4 items-start hover:no-underline">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 flex-shrink-0"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Computer Vision with TF</div>
+                        <div class="text-xs text-zinc-500 mt-1">Coursera</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Computer Vision</span></div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Cisco -->
+            <h3 class="font-display text-base font-bold text-zinc-400 mb-5 uppercase tracking-widest text-sm">Industry Certifications</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                <a href="https://www.credly.com/badges/497114e2-ee54-4ecf-a5ea-9880135a32f5/linked_in_profile" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/15 flex items-center justify-center text-blue-300 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">CCNA: Introduction to Networks</div>
+                        <div class="text-xs text-zinc-500 mt-1">Cisco · Credly Verified</div>
+                        <div class="mt-2 flex gap-2 flex-wrap"><span class="tag text-[10px]">Networking</span><span class="tag text-[10px]">Cisco</span></div>
+                    </div>
+                </a>
+
+                <!-- Udemy -->
+                <a href="https://udemy-certificate.s3.amazonaws.com/image/UC-cf7df800-2c5c-4442-9b97-1ddc8bdaeb39.jpg?v=1685898828000" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center text-purple-300 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-graduation-cap"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Udemy Certificate</div>
+                        <div class="text-xs text-zinc-500 mt-1">Udemy · UC-cf7df800</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Udemy</span></div>
+                    </div>
+                </a>
+
+                <!-- UIU Participation -->
+                <div class="cert-card flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-violet-500/15 flex items-center justify-center text-violet-300 flex-shrink-0"><i class="fas fa-award"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Python for AI &amp; ML Workshop</div>
+                        <div class="text-xs text-zinc-500 mt-1">UIU App Forum · Certificate of Participation</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Python</span><span class="tag text-[10px]">AI/ML</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grameenphone Academy -->
+            <h3 class="font-display text-base font-bold text-zinc-400 mb-5 uppercase tracking-widest text-sm">Grameenphone Academy</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="https://www.grameenphone.academy/cert/64740eb3d859" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-search"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">UX Research Strategy with AI</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Feb 23, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">UX · AI</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/01cf5e5278b3" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-pencil-ruler"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">UX Design Decision-making with AI</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 11, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">UX Design</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/aba19eefa80e" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-file-alt"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Smart CV</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Career</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/497ebd2d20d7" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-comments"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Art of Communication</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Soft Skills</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/288852d0fee1" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Corporate Presentation Skills</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Presentation</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/260d1b8c9c42" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform"><img src="favicon.png" alt="Favicon" class="w-5 h-5 object-contain"></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">LinkedIn 101</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Professional</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/6172bfe4760a" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Sharpen Your Interview Skills</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Career</span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section id="contact" class="py-24 relative z-10">
+        <div class="max-w-3xl mx-auto px-6 reveal">
+            <div class="card p-10 md:p-14 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/15 blur-[80px] pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="section-label justify-center">Get in Touch</div>
+                    <h2 class="text-4xl md:text-5xl font-display font-extrabold text-white mb-4 leading-tight">
+                        Let's Innovate<br><span class="text-grad">Together</span>
+                    </h2>
+                    <p class="text-zinc-500 mb-8 max-w-sm mx-auto">Interested in my research or want to collaborate on a project? I'm just a message away.</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <a href="mailto:musfiqurm661@gmail.com" class="btn-primary inline-flex items-center gap-2">
+                            musfiqurm661@gmail.com <i class="fas fa-paper-plane text-xs"></i>
+                        </a>
+                        <a href="cv/Md_Musfiqur_Rahman_CV.pdf" download class="btn-outline inline-flex items-center gap-2">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    </div>
+                    <div class="mt-6 text-sm text-zinc-500"><i class="fas fa-phone mr-2 text-zinc-600"></i>+880 1744-106266</div>
+
+                    <div class="mt-10 flex justify-center gap-5 pt-6 border-t border-white/5">
+                        <a href="https://github.com/musfiqurR661" target="_blank" class="text-zinc-500 hover:text-white text-2xl transition-colors"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/musfiqur661/" target="_blank" class="text-zinc-500 hover:text-blue-400 text-2xl transition-colors"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/musfiq661/" target="_blank" class="text-zinc-500 hover:text-blue-500 text-2xl transition-colors"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="text-center mt-10 text-zinc-700 text-sm">
+                <p>&copy; 2025 Md Musfiqur Rahman · Built with <span class="text-primary">curiosity</span> &amp; late nights.</p>
+            </footer>
+        </div>
+    </section>
+
+    <!-- ═══ PROFILE MODAL ═══ -->
+    <div id="profile-modal" class="modal-backdrop">
+        <div class="absolute inset-0" onclick="closeProfileModal()"></div>
+        <div class="modal-box" id="profile-modal-box">
+            <button onclick="closeProfileModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-20"><i class="fas fa-times text-xs"></i></button>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-64 bg-white/3 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-white/5 flex-shrink-0">
+                    <div class="w-24 h-24 rounded-full p-0.5 bg-gradient-to-br from-primary to-amber-400 mb-4">
+                        <img src="img/musfiq_2.png" class="w-full h-full rounded-full bg-zinc-900 object-cover" alt="Profile">
+                    </div>
+                    <h2 class="font-display font-bold text-white text-lg">Md Musfiqur Rahman</h2>
+                    <p class="text-xs text-zinc-500 mb-4 mt-1">Head of Research · UIU App Forum</p>
+                    <div class="flex gap-4 mb-6">
+                        <a href="https://github.com/musfiqurR661" target="_blank" class="text-zinc-500 hover:text-white text-lg"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/musfiqur661/" target="_blank" class="text-zinc-500 hover:text-blue-400 text-lg"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/musfiq661/" target="_blank" class="text-zinc-500 hover:text-blue-500 text-lg"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <div class="text-left w-full">
+                        <h4 class="text-white text-xs font-bold mb-2 uppercase tracking-widest">Research Interests</h4>
+                        <ul class="text-zinc-500 text-xs space-y-1">
+                            <li>· Machine Learning &amp; AI</li>
+                            <li>· Computer Vision</li>
+                            <li>· Biomedical Informatics</li>
+                            <li>· Robotics &amp; Embedded Systems</li>
+                        </ul>
+                        <div class="mt-5 pt-4 border-t border-white/5 text-xs text-zinc-500 space-y-1">
+                            <p><i class="fas fa-phone mr-2 text-primary"></i>01744106266</p>
+                            <p><i class="fas fa-envelope mr-2 text-primary"></i>musfiqurm661@gmail.com</p>
+                        </div>
+                        <div class="mt-4">
+                            <a href="cv/Md_Musfiqur_Rahman_CV.pdf" download class="btn-primary text-xs !py-2 !px-4 flex items-center justify-center gap-2 w-full">
+                                <i class="fas fa-download"></i> Download CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 p-8 overflow-y-auto max-h-[60vh]">
+                    <h3 class="font-display font-bold text-white text-lg mb-4">Honors &amp; Awards</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="cert-card border-yellow-500/20"><i class="fas fa-trophy text-yellow-400 mb-2"></i><div class="font-bold text-white text-sm">Champion</div><div class="text-xs text-zinc-500">SAD Lab Competition</div></div>
+                        <div class="cert-card border-yellow-500/20"><i class="fas fa-trophy text-yellow-400 mb-2"></i><div class="font-bold text-white text-sm">Champion</div><div class="text-xs text-zinc-500">UIU CSE Project Show</div></div>
+                        <div class="cert-card"><i class="fas fa-medal text-zinc-400 mb-2"></i><div class="font-bold text-white text-sm">1st Runner Up</div><div class="text-xs text-zinc-500">DBMS Project Show</div></div>
+                        <div class="cert-card"><i class="fas fa-medal text-zinc-400 mb-2"></i><div class="font-bold text-white text-sm">1st Runner Up</div><div class="text-xs text-zinc-500">Software Engineering Lab</div></div>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-lg mb-4">Visitor Essentials</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="cert-card">
+                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Time Zone &amp; Local Time</div>
+                            <div class="text-sm font-bold text-white">Dhaka (GMT+6)</div>
+                            <div id="dhaka-time" class="text-xs text-amber-300 mt-1">Loading local time...</div>
+                        </div>
+                        <!-- <div class="cert-card">
+                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Best Contact</div>
+                            <div class="text-sm font-bold text-white">Email: musfiqurm661@gmail.com</div>
+                            <div class="text-xs text-zinc-500 mt-1">LinkedIn is also active for quick networking.</div>
+                        </div> -->
+                        <!-- <div class="cert-card">
+                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Recent Publication</div>
+                            <div class="text-sm font-bold text-white">IEEE TENSYMP 2025</div>
+                            <div class="text-xs text-zinc-500 mt-1">Vehicle Detection &amp; Tracking (AutoTrack)</div>
+                        </div> -->
+                        <div class="cert-card">
+                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Typical Reply Time</div>
+                            <div class="text-sm font-bold text-white">Within 24 hours</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ PROJECT MODAL ═══ -->
+    <div id="proj-modal" class="modal-backdrop">
+        <div class="absolute inset-0" onclick="closeProjModal()"></div>
+        <div class="modal-box" id="proj-modal-box">
+            <div class="flex justify-between items-center p-6 border-b border-white/5 bg-white/2">
+                <h3 class="font-display font-bold text-white text-xl" id="pm-title"></h3>
+                <button onclick="closeProjModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"><i class="fas fa-times text-xs"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden mb-6 bg-zinc-900 border border-white/5">
+                    <img id="pm-image" src="" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Project">
+                </div>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1">
+                        <h4 class="font-display font-bold text-white mb-2">About</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4" id="pm-desc"></p>
+                        <div class="flex flex-wrap gap-2" id="pm-tags"></div>
+                    </div>
+                    <div class="w-full md:w-52 flex flex-col gap-3 flex-shrink-0">
+                        <a id="pm-link" href="#" target="_blank" class="btn-primary text-center text-sm !px-4 !py-3 flex items-center justify-center gap-2">Visit <i class="fas fa-external-link-alt text-xs"></i></a>
+                        <a href="https://github.com/musfiqurR661" target="_blank" class="btn-outline text-center text-sm !px-4 !py-3 flex items-center justify-center gap-2"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx - 5 + 'px'; cursor.style.top = my - 5 + 'px'; });
+    function animateRing() { rx += (mx - rx - 18) * 0.12; ry += (my - ry - 18) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animateRing); }
+    animateRing();
+    document.querySelectorAll('a, button, [onclick], .card, .proj-card, .cert-card, .exp-card').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.4)'; ring.style.borderColor = '#f59e0b'; });
+        el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.borderColor = 'rgba(245,158,11,0.5)'; });
+    });
+
+    // STARS
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    function createStars() { stars = []; for (let i = 0; i < 160; i++) { stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.2, a: Math.random(), s: 0.001 + Math.random() * 0.003 }); } }
+    function drawStars() { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => { s.a += s.s; if (s.a > 1 || s.a < 0) s.s *= -1; ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,255,255,${s.a * 0.5})`; ctx.fill(); }); requestAnimationFrame(drawStars); }
+    resizeCanvas(); createStars(); drawStars();
+    window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+
+    // SCROLL PROGRESS
+    window.addEventListener('scroll', () => { const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100; document.getElementById('scroll-progress').style.width = pct + '%'; });
+
+    // SCROLL REVEAL
+    const revealObserver = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // SKILL BARS
+    const skillObserver = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll('.skill-bar-fill').forEach(bar => { setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 200); }); } }); }, { threshold: 0.3 });
+    const skillSection = document.getElementById('skill-bars');
+    if (skillSection) skillObserver.observe(skillSection.closest('section') || skillSection);
+
+    // TYPING
+    const phrases = ['AI & Machine Learning', 'Computer Vision', 'Robotics & Embedded Systems', 'Biomedical Informatics', 'Deep Learning Research'];
+    let pi = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-text');
+    function type() { const current = phrases[pi]; if (!deleting) { el.textContent = current.slice(0, ++ci); if (ci === current.length) { deleting = true; setTimeout(type, 1800); return; } } else { el.textContent = current.slice(0, --ci); if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; } } setTimeout(type, deleting ? 45 : 75); }
+    type();
+
+    // DHAKA LOCAL TIME (for profile modal)
+    function updateDhakaTime() {
+        const timeEl = document.getElementById('dhaka-time');
+        if (!timeEl) return;
+        const nowInDhaka = new Date().toLocaleTimeString('en-GB', {
+            timeZone: 'Asia/Dhaka',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        timeEl.textContent = `Now: ${nowInDhaka}`;
+    }
+    updateDhakaTime();
+    setInterval(updateDhakaTime, 1000);
+
+    // NAV ACTIVE
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navObserver = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { navLinks.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id); }); } }); }, { threshold: 0.5 });
+    sections.forEach(s => navObserver.observe(s));
+
+    // PROJECT DATA
+    const projects = {
+        autotrack: { title: 'AutoTrack: Vehicle Detection & Tracking', desc: 'Published in IEEE (TENSYMP 2025, Doc: 11144993). A deep learning approach on a novel dataset for vehicle detection and route tracking from CCTV images. Introduces a robust CNN-based pipeline for real-time traffic monitoring.', image: 'https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=2070&auto=format&fit=crop', link: 'https://ieeexplore.ieee.org/document/11144993', tags: ['Deep Learning', 'IEEE', 'Computer Vision', 'Python', 'YOLO'] },
+        phylab: { title: 'PhysiSenseVLR: PhyLabLens', desc: 'Under review at IMAVIS. A multimodal vision-language model system for physics laboratory instrument comprehension. Leverages advanced VLMs to identify, classify, and explain physics lab instruments for interactive educational experiences.', image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop', link: 'https://github.com/musfiqurR661/PhyLabLens_ML_DIP', tags: ['Vision Language Models', 'Multimodal AI', 'Education', 'Transformers'] },
+        dengue: { title: 'Interpretable ML for Dengue Diagnosis', desc: 'Under review at BSPC. An interpretable machine learning approach for dengue diagnosis based on blood test patterns. Focuses on explainable AI (XAI) techniques to assist medical practitioners with transparent model decisions.', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop', link: '#', tags: ['Machine Learning', 'XAI', 'Healthcare', 'SHAP', 'LIME'] },
+        defectomcu: { title: 'DefectoMCU Framework', desc: 'In development. An automated vision-based framework for physical defect detection in microcontroller boards using deep learning. Aims to replace manual PCB inspection with a high-precision automated optical inspection (AOI) pipeline.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop', link: 'https://defectomcu-frontend.vercel.app/', tags: ['Computer Vision', 'Deep Learning', 'AOI', 'Automation', 'Manufacturing'] },
+        uiutools: { title: 'UIU Student Tools', desc: 'A comprehensive web platform for United International University students. Features a dynamic CGPA calculator, tuition fee estimator, and academic planning guides. Used by hundreds of UIU students.', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop', link: 'https://uiu-cgpa-calculator.web.app/home', tags: ['Web Development', 'Firebase', 'JavaScript', 'EdTech'] },
+        execode: { title: 'ExeCode Platform', desc: 'A specialized competitive programming environment with in-browser compiler, curated problem sets categorized by difficulty, a live leaderboard, and editorial support to help students practice algorithms effectively.', image: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=1931&auto=format&fit=crop', link: '#', tags: ['Web Dev', 'Competitive Programming', 'Algorithms', 'Education'] }
+    };
+
+    // MODALS
+    function openProfileModal() { const m = document.getElementById('profile-modal'); const b = document.getElementById('profile-modal-box'); m.classList.add('open'); setTimeout(() => b.classList.add('open'), 10); }
+    function closeProfileModal() { const m = document.getElementById('profile-modal'); const b = document.getElementById('profile-modal-box'); b.classList.remove('open'); setTimeout(() => m.classList.remove('open'), 350); }
+    function openProjModal(id) { const d = projects[id]; if (!d) return; document.getElementById('pm-title').textContent = d.title; document.getElementById('pm-desc').textContent = d.desc; document.getElementById('pm-image').src = d.image; document.getElementById('pm-link').href = d.link; const tags = document.getElementById('pm-tags'); tags.innerHTML = d.tags.map(t => `<span class="tag">${t}</span>`).join(''); const m = document.getElementById('proj-modal'); const b = document.getElementById('proj-modal-box'); m.classList.add('open'); setTimeout(() => b.classList.add('open'), 10); }
+    function closeProjModal() { const m = document.getElementById('proj-modal'); const b = document.getElementById('proj-modal-box'); b.classList.remove('open'); setTimeout(() => m.classList.remove('open'), 350); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProfileModal(); closeProjModal(); } });
+
+    // PROJECT FILTER
+    function filterProjects(category, btn) { document.querySelectorAll('.active-filter').forEach(b => { b.classList.remove('active-filter'); b.style.borderColor = ''; b.style.color = ''; }); btn.classList.add('active-filter'); btn.style.borderColor = 'rgba(124,58,237,0.5)'; btn.style.color = 'white'; document.querySelectorAll('#projects-grid .proj-card').forEach(card => { const match = category === 'all' || card.dataset.category === category; card.style.opacity = match ? '1' : '0.2'; card.style.transform = match ? '' : 'scale(0.95)'; }); }
+
+    VanillaTilt.init(document.querySelectorAll('[data-tilt]'), { max: 6, speed: 400, glare: true, 'max-glare': 0.08 });
+    </script>
+</body>
+</html>
