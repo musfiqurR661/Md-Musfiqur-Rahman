@@ -1,57 +1,56 @@
-# Md Musfiqur Rahman
+# 🚀 Md Musfiqur Rahman
+### **AI Researcher | Computer Science Undergrad | Head of Research @ UIU App Forum**
 
-## About
-I am an AI Researcher and Developer with a passion for leveraging technology to solve real-world problems.
+[![Portfolio](https://img.shields.io/badge/Live-Portfolio-7c3aed?style=for-the-badge&logo=googlechrome&logoColor=white)](https://musfiqurr661.github.io/Md-Musfiqur-Rahman/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/musfiqur661/)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-white?style=for-the-badge&logo=github&logoColor=black)](https://github.com/musfiqurR661)
 
-## Research Interests
-- Artificial Intelligence
-- Machine Learning
-- Natural Language Processing
-- Computer Vision
+---
 
-## Highlights
-### Publications
-1. Title of Publication 1
-2. Title of Publication 2
-3. Title of Publication 3
-4. Title of Publication 4
+## 👨‍🔬 About Me
+I am a CSE undergraduate at **United International University (UIU)** with a deep focus on **Computer Vision**, **Deep Learning**, and **Biomedical Informatics**. My goal is to bridge the gap between complex research and real-world applications, specifically in healthcare and automated inspection systems.
 
-### Awards
-1. Award Name 1
-2. Award Name 2
-3. Award Name 3
-4. Award Name 4
+* 🔭 **Currently:** Leading the Research Unit at UIU App Forum.
+* 🔬 **Research Focus:** Multimodal Vision-Language Models (VLM) and Explainable AI (XAI).
+* 🎓 **Education:** B.Sc. in Computer Science & Engineering (In Progress).
 
-### Projects
-1. AutoTrack
-2. PhysiSenseVLR
-3. Dengue Diagnosis ML
-4. DefectoMCU
-5. UIU Student Tools
-6. ExeCode
+---
 
-## Experience
-### UIU App Forum
-- Role 1 (Date)
-- Role 2 (Date)
+## 📚 Featured Research & Publications
 
-## Education
-### Timeline Highlights
-- Degree 1 (Institution, Year)
-- Degree 2 (Institution, Year)
+| Project | Status | Description |
+| :--- | :--- | :--- |
+| **AutoTrack** | ✅ **Published (IEEE)** | Vehicle detection and route tracking from CCTV using Deep Learning. |
+| **PhysiSenseVLR** | ⏳ **Under Review** | Multimodal VLM for physics lab instrument comprehension. |
+| **Dengue Diagnosis** | ⏳ **Under Review** | Interpretable ML (XAI) for medical diagnosis based on blood patterns. |
+| **DefectoMCU** | 🛠️ **In Progress** | Vision-based framework for detecting microcontroller board defects. |
 
-## Certifications
-- Coursera (Year)
-- Cisco CCNA (Year)
-- Udemy (Year)
-- UIU workshop (Year)
-- Grameenphone Academy (Year)
+---
 
-## Contact
-- Email: your_email@example.com
-- Phone: +1234567890
-- [GitHub](https://github.com/musfiqurR661)
-- [LinkedIn](https://www.linkedin.com/in/yourprofile)
-- [Facebook](https://www.facebook.com/yourprofile)
+## 🛠️ Technical Arsenal
 
-For more information, visit my [Portfolio](index.html) and view my CV [here](cv/Md_Musfiqur_Rahman_CV.pdf).
+* **Languages:** Python, C++, JavaScript (ES6+), Dart.
+* **AI/ML Stack:** TensorFlow, PyTorch, YOLO, OpenCV, Scikit-learn.
+* **App/Web Dev:** Flutter (Mobile), Firebase, Tailwind CSS, SQL/NoSQL.
+* **Certifications:** CCNA (Networking), Deep Learning Specialization (Coursera), UX Strategy with AI (GP Academy).
+
+---
+
+## 🏆 Honors & Awards
+* 🏆 **Champion** — 𝑺𝑨𝑫 𝑳𝒂𝒃 𝑷𝒓𝒐𝒋𝒆𝒄𝒕 𝑺𝒉𝒐𝒘
+* 🏆 **Champion** —  𝑫𝑩𝑴𝑺 𝑷𝒐𝒔𝒕𝒆𝒓 𝑷𝒓𝒆𝒔𝒆𝒏𝒕𝒂𝒕𝒊𝒐𝒏
+* 🥈 **1st Runner Up** — DBMS Project Show
+* 🥈 **1st Runner Up** — Software Engineering Lab Show
+
+---
+
+
+---
+
+## 📫 Let's Connect
+* **Email:** [musfiqurm661@gmail.com](mailto:musfiqurm661@gmail.com)
+* **Phone:** +880 1744-106266
+* **Location:** Dhaka, Bangladesh (GMT+6)
+
+---
+*Built with curiosity & late nights. © 2026 Md Musfiqur Rahman*
