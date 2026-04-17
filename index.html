@@ -172,11 +172,12 @@
         .gallery-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
         .gallery-tab { border: 1px solid rgba(255,255,255,0.12); color: #a1a1aa; background: rgba(255,255,255,0.03); padding: 9px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: all 0.25s ease; }
         .gallery-tab.active { border-color: rgba(124,58,237,0.5); color: #ffffff; background: rgba(124,58,237,0.18); }
+
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
         .gallery-item { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
         .gallery-item img { width: 100%; height: 260px; object-fit: cover; transition: transform 0.35s ease; }
         .gallery-item:hover img { transform: scale(1.04); }
-        .gallery-meta { padding: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .gallery-meta { display: none; }
 
         @media (max-width: 768px) {
             #cursor, #cursor-ring { display: none; }
@@ -515,6 +516,7 @@
                         <li><strong>PhysiSenseVLR</strong>: Multimodal VLM for physics lab instrument understanding (Under Review).</li>
                         <li><strong>Dengue Diagnosis ML</strong>: Interpretable machine learning pipeline with explainability (Under Review).</li>
                         <li><strong>DefectoMCU</strong>: Vision-based framework for microcontroller defect detection (In Progress).</li>
+                        <li><strong>German-VPD</strong>: Partially completed web application for German Grade.</li>
                         <li><strong>UIU Student Tools</strong>: Student-focused academic and utility web tools for UIU.</li>
                     </ul>
                 </section>
@@ -862,6 +864,13 @@
                     <p class="text-zinc-500 text-sm mb-4 flex-grow">Competitive programming platform with compiler, problem sets &amp; leaderboard.</p>
                     <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">CP</span><span class="tag">Platform</span><span class="tag">Algorithms</span></div>
                 </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('germanvpd')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-violet-500/10 text-violet-400 border border-violet-500/20"><i class="fas fa-rocket mr-1"></i>Live</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">German-VPD</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Live development project hosted on Vercel with a modern product-style experience.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Vercel</span><span class="tag">Live</span><span class="tag">Web App</span></div>
+                </div>
             </div>
         </div>
     </section>
@@ -890,7 +899,7 @@
                 <img src="https://github-readme-stats.vercel.app/api?username=musfiqurR661&show_icons=true&theme=transparent&title_color=a78bfa&text_color=d4d4d8&icon_color=f59e0b&border_color=27272a" alt="GitHub Stats" class="card p-3 w-full">
                 <img src="https://github-readme-streak-stats.herokuapp.com?user=musfiqurR661&theme=dark&ring=f59e0b&fire=f59e0b&currStreakLabel=a78bfa&background=09090b&border=27272a" alt="GitHub Streak" class="card p-3 w-full">
             </div>
-            <p class="text-xs text-zinc-500 mt-4">If the chart does not load on some networks, open the GitHub profile card above to see activity directly.</p>
+            <!-- <p class="text-xs text-zinc-500 mt-4">If the chart does not load on some networks, open the GitHub profile card above to see activity directly.</p> -->
         </div>
     </section>
 
@@ -901,11 +910,10 @@
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
                 <div>
                     <h2 class="text-4xl font-display font-bold text-white mb-2">Life Timeline <span class="text-zinc-600">Through Frames</span></h2>
-                    <p class="text-zinc-500 text-sm">Separated timeline categories: Projects, Best Moments, UIU, Others.</p>
                 </div>
                 <div class="gallery-tabs">
-                    <button class="gallery-tab active" onclick="filterGallery('projects', this)">Projects</button>
-                    <button class="gallery-tab" onclick="filterGallery('best-moments', this)">Best Moments</button>
+                    <button class="gallery-tab active" onclick="filterGallery('best-moments', this)">Best Moments</button>
+                    <button class="gallery-tab" onclick="filterGallery('projects', this)">Projects</button>
                     <button class="gallery-tab" onclick="filterGallery('uiu', this)">UIU</button>
                     <button class="gallery-tab" onclick="filterGallery('others', this)">Others</button>
                 </div>
@@ -913,39 +921,131 @@
 
             <div class="gallery-grid" id="gallery-grid">
                 <article class="gallery-item" data-gallery="projects">
-                    <img src="img/musfiq.png" alt="Project moment">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Project Showcase Day</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                    <img src="img/gallery/projects/baby%20neo.jpg" alt="Project image baby neo">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Baby Neo</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
                 </article>
                 <article class="gallery-item" data-gallery="projects">
-                    <img src="img/musfiq_2.png" alt="Lab work session">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Research Iteration Night</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                    <img src="img/gallery/projects/bcrypt.jpg" alt="Project image bcrypt">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Bcrypt</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/pharmbrew.jpg" alt="Project image pharmbrew">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">PharmBrew</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/pharmbrew2.jpg" alt="Project image pharmbrew 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">PharmBrew 2</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/smart%20crciStd.jpg" alt="Project image smart crciStd">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Smart CRCi Std</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/smart%20crcStd%20main.jpg" alt="Project image smart crcStd main">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Smart CRC Std Main</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/SW.jpg" alt="Project image SW">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">SW</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/sw2.jpg" alt="Project image sw2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">SW 2</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="img/gallery/projects/zz.jpg" alt="Project image zz">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">ZZ</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
                 </article>
 
                 <article class="gallery-item" data-gallery="best-moments">
-                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200&auto=format&fit=crop" alt="Best moment celebration">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Winning Moment</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                    <img src="img/gallery/best-moments/cox_me.jpg" alt="Best moment cox me">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Cox Me</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
                 </article>
                 <article class="gallery-item" data-gallery="best-moments">
-                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop" alt="Best event photo">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Conference Highlight</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                    <img src="img/gallery/best-moments/me.jpg" alt="Best moment me">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Me</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="img/gallery/best-moments/me2.jpg" alt="Best moment me2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Me 2</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="img/gallery/best-moments/nijum_me.jpg" alt="Best moment nijum me">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nijum Me</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="img/gallery/best-moments/nijum_me2.jpg" alt="Best moment nijum me 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nijum Me 2</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
                 </article>
 
                 <article class="gallery-item" data-gallery="uiu">
-                    <img src="img/fav2.png" alt="UIU campus moment">
+                    <img src="img/gallery/uiu/fydp.jpg" alt="UIU FYDP">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">FYDP</p><p class="text-xs text-zinc-500 mt-1">UIU timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="uiu">
+                    <img src="img/fav2.png" alt="UIU research community">
                     <div class="gallery-meta"><p class="text-sm text-white font-medium">UIU Research Community</p><p class="text-xs text-zinc-500 mt-1">UIU timeline</p></div>
                 </article>
-                <article class="gallery-item" data-gallery="uiu">
-                    <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=1200&auto=format&fit=crop" alt="University environment">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Campus Session</p><p class="text-xs text-zinc-500 mt-1">UIU timeline</p></div>
-                </article>
 
                 <article class="gallery-item" data-gallery="others">
-                    <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop" alt="Travel and lifestyle">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Weekend Reflections</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                    <img src="img/gallery/others/blue_buddy.jpg" alt="Others blue buddy">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Blue Buddy</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
                 </article>
                 <article class="gallery-item" data-gallery="others">
-                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop" alt="Outdoor capture">
-                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Outside Work</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                    <img src="img/gallery/others/blue_buddy2.jpg" alt="Others blue buddy 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Blue Buddy 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/others/buddy3.jpg" alt="Others buddy 3">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Buddy 3</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/others/myBoys.jpg" alt="Others my boys">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">My Boys</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/others/we%20blue.jpg" alt="Others we blue">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">We Blue</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/others/we%20blue%202.jpg" alt="Others we blue 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">We Blue 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/ahsan.jpg" alt="Tour ahsan">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Ahsan</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/ahsan2.jpg" alt="Tour ahsan 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Ahsan 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/balu.jpg" alt="Tour balu">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Balu</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/nilgiri.jpg" alt="Tour nilgiri">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nilgiri</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/nilgiri2.jpg" alt="Tour nilgiri 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nilgiri 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/nilgiri3.jpg" alt="Tour nilgiri 3">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nilgiri 3</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/tour.jpg" alt="Tour image 1">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Tour</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/tour2.jpg" alt="Tour image 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Tour 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="img/gallery/tour/tour3.jpg" alt="Tour image 3">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Tour 3</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
                 </article>
             </div>
         </div>
@@ -1063,7 +1163,7 @@
                     </div>
                 </a>
                 <a href="https://www.grameenphone.academy/cert/260d1b8c9c42" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
-                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform"><img src="favicon.png" alt="Favicon" class="w-5 h-5 object-contain"></div>
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fab fa-linkedin-in"></i></div>
                     <div>
                         <div class="font-display font-bold text-white text-sm">LinkedIn 101</div>
                         <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
@@ -1112,7 +1212,7 @@
             </div>
 
             <footer class="text-center mt-10 text-zinc-700 text-sm">
-                <p>&copy; 2025 Md Musfiqur Rahman · Built with <span class="text-primary">curiosity</span> &amp; late nights.</p>
+                <p>&copy; 2026 Md Musfiqur Rahman · Built with <span class="text-primary">curiosity</span> &amp; late nights. V 1.0.1</p>
             </footer>
         </div>
     </section>
@@ -1311,6 +1411,7 @@
         dengue: { title: 'Interpretable ML for Dengue Diagnosis', desc: 'Under review at BSPC. An interpretable machine learning approach for dengue diagnosis based on blood test patterns. Focuses on explainable AI (XAI) techniques to assist medical practitioners with transparent model decisions.', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop', link: '#', tags: ['Machine Learning', 'XAI', 'Healthcare', 'SHAP', 'LIME'] },
         defectomcu: { title: 'DefectoMCU Framework', desc: 'In development. An automated vision-based framework for physical defect detection in microcontroller boards using deep learning. Aims to replace manual PCB inspection with a high-precision automated optical inspection (AOI) pipeline.', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop', link: 'https://defectomcu-frontend.vercel.app/', tags: ['Computer Vision', 'Deep Learning', 'AOI', 'Automation', 'Manufacturing'] },
         uiutools: { title: 'UIU Student Tools', desc: 'A comprehensive web platform for United International University students. Features academic planning calculators, tuition fee estimation, and study tools used by many UIU students.', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop', link: 'https://uiu-cgpa-calculator.web.app/home', tags: ['Web Development', 'Firebase', 'JavaScript', 'EdTech'] },
+        germanvpd: { title: 'German-VPD', desc: 'Live development project hosted on Vercel with a modern product-style web experience.', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop', link: 'https://german-vpd-n.vercel.app/', tags: ['Vercel', 'Live', 'Web App', 'Development'] },
         execode: { title: 'ExeCode Platform', desc: 'A specialized competitive programming environment with in-browser compiler, curated problem sets categorized by difficulty, a live leaderboard, and editorial support to help students practice algorithms effectively.', image: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=1931&auto=format&fit=crop', link: '#', tags: ['Web Dev', 'Competitive Programming', 'Algorithms', 'Education'] }
     };
 
@@ -1329,15 +1430,14 @@
 
     function filterGallery(category, btn) {
         document.querySelectorAll('.gallery-tab').forEach(tab => tab.classList.remove('active'));
-        btn.classList.add('active');
+        if (btn) btn.classList.add('active');
         document.querySelectorAll('#gallery-grid .gallery-item').forEach(item => {
             const visible = item.dataset.gallery === category;
             item.style.display = visible ? 'block' : 'none';
         });
     }
 
-    // Initialize default gallery timeline state.
-    filterGallery('projects', document.querySelector('.gallery-tab.active'));
+    filterGallery('best-moments', document.querySelector('.gallery-tab.active'));
 
     function buildPrintableResumeHtml() {
         const source = document.getElementById('resume-print');
