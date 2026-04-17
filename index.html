@@ -173,10 +173,17 @@
         .gallery-tab { border: 1px solid rgba(255,255,255,0.12); color: #a1a1aa; background: rgba(255,255,255,0.03); padding: 9px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: all 0.25s ease; }
         .gallery-tab.active { border-color: rgba(124,58,237,0.5); color: #ffffff; background: rgba(124,58,237,0.18); }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; align-items: start; }
         .gallery-item { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
-        .gallery-item img { width: 100%; height: 260px; object-fit: cover; transition: transform 0.35s ease; }
-        .gallery-item:hover img { transform: scale(1.04); }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            object-fit: unset;
+            background: transparent;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .gallery-item:hover img { transform: none; }
         .gallery-meta { display: none; }
 
         @media (max-width: 768px) {
@@ -1437,7 +1444,61 @@
         });
     }
 
+    function sortGalleryBySize() {
+        const grid = document.getElementById('gallery-grid');
+        if (!grid) return;
+
+        const categories = ['best-moments', 'projects', 'uiu', 'others'];
+        categories.forEach(category => {
+            const items = Array.from(grid.querySelectorAll(`.gallery-item[data-gallery="${category}"]`));
+            const measured = items.map(item => {
+                const img = item.querySelector('img');
+                const w = img?.naturalWidth || img?.width || 0;
+                const h = img?.naturalHeight || img?.height || 0;
+                const area = w * h;
+                const ratio = h ? w / h : 1;
+                return { item, area, ratio, w, h };
+            });
+
+            // Similar/smaller images first, larger resolution images later.
+            measured.sort((a, b) => {
+                if (a.area !== b.area) return a.area - b.area;
+                if (a.ratio !== b.ratio) return a.ratio - b.ratio;
+                if (a.w !== b.w) return a.w - b.w;
+                return a.h - b.h;
+            });
+
+            measured.forEach(entry => grid.appendChild(entry.item));
+        });
+    }
+
+    function initGallerySorting() {
+        const images = Array.from(document.querySelectorAll('#gallery-grid .gallery-item img'));
+        if (!images.length) return;
+
+        let pending = images.length;
+        const done = () => {
+            pending -= 1;
+            if (pending === 0) {
+                sortGalleryBySize();
+                const activeBtn = document.querySelector('.gallery-tab.active');
+                const activeCategory = activeBtn?.getAttribute('onclick')?.match(/'([^']+)'/)?.[1] || 'best-moments';
+                filterGallery(activeCategory, activeBtn);
+            }
+        };
+
+        images.forEach(img => {
+            if (img.complete) {
+                done();
+            } else {
+                img.addEventListener('load', done, { once: true });
+                img.addEventListener('error', done, { once: true });
+            }
+        });
+    }
+
     filterGallery('best-moments', document.querySelector('.gallery-tab.active'));
+    initGallerySorting();
 
     function buildPrintableResumeHtml() {
         const source = document.getElementById('resume-print');
