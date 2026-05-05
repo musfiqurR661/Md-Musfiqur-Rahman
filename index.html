@@ -17,7 +17,7 @@
             document.documentElement.classList.add('home-lock');
             if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
             const homeUrl = `${window.location.pathname}${window.location.search}#home`;
-            if (window.location.hash !== '#home') {
+            if (!window.location.hash) {
                 history.replaceState(null, '', homeUrl);
             }
             window.scrollTo(0, 0);
@@ -621,6 +621,13 @@
                     <h3 class="font-display font-bold text-white mb-2">UIU Student Tools</h3>
                     <p class="text-zinc-500 text-sm mb-4 flex-grow">Academic calculator, tuition estimator &amp; study tools for UIU students. Used by hundreds.</p>
                     <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Web Dev</span><span class="tag">EdTech</span><span class="tag">Utility</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('unitools')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"><i class="fas fa-wrench mr-1"></i>Live</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">UniTools</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Utility suite for students — calculators, small productivity tools, and quick helpers.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Vercel</span><span class="tag">Utilities</span><span class="tag">EdTech</span></div>
                 </div>
 
                 <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('execode')">

@@ -72,7 +72,7 @@
 
             const ensureHomeTop = () => {
                 const home = document.getElementById('home');
-                if (window.location.hash !== '#home') {
+                if (!window.location.hash) {
                     const homeUrl = `${window.location.pathname}${window.location.search}#home`;
                     history.replaceState(null, '', homeUrl);
                 }
@@ -123,3 +123,48 @@ window.addEventListener('afterprint', () => {
     });
 
     VanillaTilt.init(document.querySelectorAll('[data-tilt]'), { max: 6, speed: 400, glare: true, 'max-glare': 0.08 });
+
+    // GitHub images fallback: replace failed images with a link card
+    function ensureGithubImageFallback() {
+        const ids = ['github-stats-live', 'github-streak-live'];
+        ids.forEach(id => {
+            const img = document.getElementById(id);
+            if (!img) return;
+
+            function replaceWithLink() {
+                const a = document.createElement('a');
+                a.href = 'https://github.com/musfiqurR661';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.className = 'card p-6 flex items-center justify-center';
+                a.innerHTML = `
+                    <div class="w-full flex flex-col md:flex-row items-center gap-4">
+                        <div class="flex-1">
+                            <p class="text-xs uppercase text-zinc-500">Profile Snapshot</p>
+                            <h3 class="font-display text-lg text-white font-bold">musfiqurR661</h3>
+                            <p class="text-sm text-zinc-400 mt-2">Open source, research repositories, and production-ready backend systems. Visit the profile to explore projects, contributions, and live demos.</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <span class="btn-outline !px-5 !py-3">Open GitHub Profile</span>
+                        </div>
+                    </div>
+                `;
+                img.replaceWith(a);
+            }
+
+            img.addEventListener('error', replaceWithLink);
+
+            // If image is already loaded but failed (naturalWidth==0), trigger replacement
+            setTimeout(() => {
+                if (img.complete && (!img.naturalWidth || img.naturalWidth === 0)) {
+                    replaceWithLink();
+                }
+            }, 1200);
+        });
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        ensureGithubImageFallback();
+    } else {
+        document.addEventListener('DOMContentLoaded', ensureGithubImageFallback, { once: true });
+    }
