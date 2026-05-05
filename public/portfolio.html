@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Musfiqur Rahman — AI Researcher & Developer</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <meta name="theme-color" content="#050507">
+    <script>
+        (function preRenderHomeLock() {
+            document.documentElement.style.visibility = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.classList.add('home-lock');
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            window.scrollTo(0, 0);
+        })();
+    </script>
+    <script src="/https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <script src="/https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#7c3aed',
+                        accent: '#f59e0b',
+                        neon: '#a3e635',
+                        ink: '#09090b',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+    <div id="scroll-progress"></div>
+
+    <canvas id="stars-canvas"></canvas>
+    <div class="orb" style="width:500px;height:500px;top:-100px;right:-100px;background:rgba(124,58,237,0.12)"></div>
+    <div class="orb" style="width:400px;height:400px;bottom:20%;left:-100px;background:rgba(245,158,11,0.08)"></div>
+    <div class="orb" style="width:300px;height:300px;top:50%;right:10%;background:rgba(163,230,53,0.05)"></div>
+
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4">
+        <div class="glass rounded-2xl px-6 py-3 flex items-center gap-6 shadow-2xl max-w-3xl w-full justify-between">
+            <a href="#home" class="font-display font-800 text-white text-lg tracking-tight flex items-center gap-2">
+                <span class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-xs font-bold">MR</span>
+                <span class="hidden sm:inline">Musfiqur</span>
+            </a>
+            <div class="flex items-center gap-1">
+                <a href="#home" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Home</a>
+                <a href="#about" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">About</a>
+                <a href="#experience" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Experience</a>
+                <a href="#projects" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Research</a>
+                <a href="#gallery" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Gallery</a>
+                <a href="#github" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">GitHub</a>
+                <a href="#certs" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Certs</a>
+                <a href="#resume" class="nav-link px-3 py-1.5 text-sm text-zinc-400 hidden md:block">Resume</a>
+                <a href="#contact" class="ml-2 btn-primary text-sm !px-5 !py-2 !rounded-xl">Let's Talk</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- --- HERO --- -->
+    <section id="home" class="min-h-screen relative flex items-center justify-center pt-24 grid-bg">
+        <div class="max-w-6xl w-full mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 z-10">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass">
+                    <span class="relative flex h-2 w-2">
+                        <span class="avail-ring"></span>
+                        <span class="relative w-2 h-2 rounded-full bg-green-400"></span>
+                    </span>
+                    <span class="text-xs font-semibold text-zinc-300 tracking-widest uppercase">Open to Collaboration</span>
+                </div>
+
+                <div>
+                    <h1 class="text-6xl md:text-7xl font-display font-extrabold leading-[1.05] tracking-tight">
+                        Hello,<br>I'm <span class="text-grad">Musfiqur</span>
+                    </h1>
+                    <p class="mt-4 text-xl text-zinc-400 font-light">
+                        CSE Undergrad &amp; Research Assistant focused on<br>
+                        <span id="typed-text" class="text-white font-medium type-cursor"></span>
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <a href="#projects" class="btn-primary flex items-center gap-2">
+                        View Research <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="#" onclick="requestCVByEmail(event)" class="btn-outline flex items-center gap-2">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                    <a href="https://github.com/musfiqurR661" target="_blank" class="btn-outline flex items-center gap-2">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-10 pt-4 border-t border-white/5">
+                    <div>
+                        <div class="stat-num text-grad">4+</div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Publications</p>
+                    </div>
+                    <div>
+                        <div class="stat-num text-grad-amber">4+</div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Awards</p>
+                    </div>
+                    <div>
+                        <div class="stat-num" style="color:#a3e635">6+</div>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Projects</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Card -->
+            <div class="relative flex justify-center items-center h-[420px]">
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-amber-500/10 blur-2xl opacity-50 float"></div>
+                <a href="https://github.com/musfiqurR661" target="_blank" rel="noopener" class="github-mini hero-contrib-badge" onclick="event.stopPropagation()">
+                    <div id="hero-contrib-count" class="github-mini-count">Loading...</div>
+                    <div id="hero-contrib-label" class="github-mini-label">GitHub Contributions</div>
+                </a>
+                <div class="card w-full max-w-sm p-8 text-center cursor-pointer group relative z-10" onclick="openProfileModal()" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.08">
+                    <div class="relative inline-block mb-6">
+                        <!-- Profile image ring size: change w-32 h-32 here to make it smaller/bigger -->
+                        <div class="w-32 h-32 rounded-full p-0.5 bg-gradient-to-br from-primary via-violet-400 to-amber-400 mx-auto shadow-2xl">
+                            <img src="/img/musfiq_2.png" class="w-full h-full rounded-full bg-zinc-900 object-cover" alt="Profile">
+                        </div>
+                        <span class="absolute bottom-1 right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-zinc-900"></span>
+                    </div>
+                    <h2 class="font-display text-xl font-bold text-white group-hover:text-grad transition-all">Md Musfiqur Rahman</h2>
+                    <p class="text-xs text-zinc-500 mt-1 mb-4">Head of Research · UIU App Forum</p>
+                    <div class="flex flex-wrap gap-2 justify-center mb-6">
+                        <span class="tag">AI/ML</span>
+                        <span class="tag">Computer Vision</span>
+                        <span class="tag">Robotics</span>
+                    </div>
+                    <div class="flex justify-center gap-4 mb-6">
+                        <a href="https://github.com/musfiqurR661" target="_blank" onclick="event.stopPropagation()" class="text-zinc-500 hover:text-white transition-colors text-lg"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/musfiqur661/" target="_blank" onclick="event.stopPropagation()" class="text-zinc-500 hover:text-blue-400 transition-colors text-lg"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/musfiq661/" target="_blank" onclick="event.stopPropagation()" class="text-zinc-500 hover:text-blue-500 transition-colors text-lg"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <div class="text-xs transition-colors flex items-center justify-center gap-2 notice-blink notice-callout">
+                        <i class="fas fa-expand-arrows-alt text-amber-300"></i>
+                        <span class="text-grad-amber font-semibold tracking-wide">Tap to expand profile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">Resume</div>
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-white mb-2">Resume Snapshot</h2>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="downloadResumePDF()" class="btn-primary !px-6 !py-3 inline-flex items-center gap-2"><i class="fas fa-download"></i> Download PDF</button>
+                    <a href="#contact" class="btn-outline !px-6 !py-3 inline-flex items-center gap-2"><i class="fas fa-envelope"></i> Hire Me</a>
+                </div>
+            </div>
+
+            <article id="resume-print" class="resume-panel p-6 md:p-8">
+                <div class="resume-headline pb-5 mb-6">
+                    <h3 class="font-display text-4xl md:text-5xl font-extrabold tracking-tight">MD MUSFIQUR RAHMAN</h3>
+                    <p class="text-lg text-zinc-300 mt-2">AI Researcher | CSE Undergraduate | Head of Research, UIU App Forum</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="resume-chip"><i class="fas fa-envelope"></i> musfiqurm661@gmail.com</span>
+                        <span class="resume-chip"><i class="fas fa-phone"></i> +880 1744-106266</span>
+                        <span class="resume-chip"><i class="fab fa-linkedin"></i> linkedin.com/in/musfiqur661</span>
+                        <span class="resume-chip"><i class="fab fa-github"></i> github.com/musfiqurR661</span>
+                    </div>
+                </div>
+
+                <section class="mb-6">
+                    <h4 class="font-display text-xl font-bold mb-2">Professional Summary</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <p class="text-zinc-300 leading-relaxed text-sm">
+                        CSE undergraduate at United International University focused on Computer Vision, Deep Learning,
+                        and Biomedical Informatics. Active in research and product building through UIU App Forum,
+                        with practical experience in AI model development, academic teamwork, and student-focused technical platforms.
+                    </p>
+                </section>
+
+                <section class="mb-6">
+                    <h4 class="font-display text-xl font-bold mb-2">Technical Skills</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <table class="resume-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 220px;">Category</th>
+                                <th>Technologies</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Programming Languages</td>
+                                <td>Python, C++, JavaScript (ES6+), Dart</td>
+                            </tr>
+                            <tr>
+                                <td>AI/ML Stack</td>
+                                <td>TensorFlow, PyTorch, YOLO, OpenCV, Scikit-learn, Vision-Language Models</td>
+                            </tr>
+                            <tr>
+                                <td>App/Web Development</td>
+                                <td>Flutter, Firebase, Tailwind CSS, SQL / NoSQL</td>
+                            </tr>
+                            <tr>
+                                <td>Research Focus</td>
+                                <td>Computer Vision, Explainable AI (XAI), Robotics, Biomedical AI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h4 class="font-display text-xl font-bold mb-2">Professional Experience</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <div class="space-y-4 text-sm text-zinc-300">
+                        <div>
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <p class="font-bold text-white">UIU App Forum</p>
+                                <p class="text-zinc-400">Nov 2025 - Present</p>
+                            </div>
+                            <p class="text-zinc-500 italic mb-2">Head of Research Unit · Full-time · On-site</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Leading research-based initiatives and supervising research-focused student teams.</li>
+                                <li>Driving collaboration across AI, software, and community development activities.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <p class="font-bold text-white">UIU App Forum</p>
+                                <p class="text-zinc-400">Sep 2024 - Nov 2025</p>
+                            </div>
+                            <p class="text-zinc-500 italic mb-2">Associate - Academic &amp; Growth · Full-time · On-site</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Organized workshops and technical sessions to grow community learning outcomes.</li>
+                                <li>Supported academic initiatives and cross-team student engagement programs.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <p class="font-bold text-white">UIU App Forum</p>
+                                <p class="text-zinc-400">Aug 2023 - Sep 2024</p>
+                            </div>
+                            <p class="text-zinc-500 italic mb-2">Junior Executive · On-site</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Contributed to technical operations, student projects, and event coordination.</li>
+                                <li>Supported app development and forum execution across multiple activities.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mt-6">
+                    <h4 class="font-display text-xl font-bold mb-2">Key Projects</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>AutoTrack</strong>: Vehicle detection and route tracking from CCTV using Deep Learning (IEEE Published).</li>
+                        <li><strong>PhysiSenseVLR</strong>: Multimodal VLM for physics lab instrument understanding (Under Review).</li>
+                        <li><strong>Dengue Diagnosis ML</strong>: Interpretable machine learning pipeline with explainability (Under Review).</li>
+                        <li><strong>DefectoMCU</strong>: Vision-based framework for microcontroller defect detection (In Progress).</li>
+                        <li><strong>German-VPD</strong>: Partially completed web application for German Grade.</li>
+                        <li><strong>UIU Student Tools</strong>: Student-focused academic and utility web tools for UIU.</li>
+                    </ul>
+                </section>
+
+                <section class="mt-6">
+                    <h4 class="font-display text-xl font-bold mb-2">Education</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>B.Sc. in Computer Science &amp; Engineering</strong>, United International University (2022 - Present)</li>
+                        <li><strong>HSC - Science</strong>, Adhyapak Abdul Majid College (2020)</li>
+                        <li><strong>SSC - Science</strong>, Homna Adarsha High School (2018)</li>
+                    </ul>
+                </section>
+
+                <section class="mt-6">
+                    <h4 class="font-display text-xl font-bold mb-2">Additional Information</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>LinkedIn</strong>: linkedin.com/in/musfiqur661</li>
+                        <li><strong>GitHub</strong>: github.com/musfiqurR661</li>
+                        <li><strong>Location</strong>: Dhaka, Bangladesh</li>
+                        <li><strong>Email</strong>: musfiqurm661@gmail.com</li>
+                    </ul>
+                </section>
+
+                <section class="mt-6">
+                    <h4 class="font-display text-xl font-bold mb-2">AWARDS &amp; ACHIEVEMENTS</h4>
+                    <div class="resume-rule mb-3"></div>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Champion - SAD Lab Project Show</li>
+                        <li>Champion - DBMS Poster Presentation</li>
+                        <li>1st Runner Up - DBMS Project Show</li>
+                        <li>1st Runner Up - Software Engineering Lab Show</li>
+                    </ul>
+                </section>
+            </article>
+        </div>
+    </section>
+
+    <!-- --- ABOUT --- -->
+    <section id="about" class="py-28 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">About Me</div>
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-6">
+                        Building Intelligent Systems<br><span class="text-zinc-500">from First Principles</span>
+                    </h2>
+                    <p class="text-zinc-400 leading-relaxed mb-4">
+                        I'm a CSE undergraduate at United International University with a deep obsession for making machines perceive and understand the world. My research spans computer vision, deep learning, and biomedical informatics.
+                    </p>
+                    <p class="text-zinc-400 leading-relaxed">
+                        Outside of research, I build developer tools, competitive programming platforms, and student utilities that make everyday academic life easier.
+                    </p>
+
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="cert-card">
+                            <i class="fas fa-university text-primary mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">UIU</div>
+                            <div class="text-xs text-zinc-500">B.Sc. in CSE</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-map-marker-alt text-amber-400 mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">Dhaka, Bangladesh</div>
+                            <div class="text-xs text-zinc-500">Available globally</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-flask text-neon mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">Research Areas</div>
+                            <div class="text-xs text-zinc-500">CV · ML · Robotics</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-envelope text-primary mb-3 text-xl"></i>
+                            <div class="font-display font-bold text-white text-sm">musfiqurm661</div>
+                            <div class="text-xs text-zinc-500">@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-display text-lg font-bold text-white mb-6">Technical Proficiency</h3>
+                    <div class="space-y-5" id="skill-bars">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Deep Learning & Computer Vision</span><span class="text-xs text-zinc-500">85%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="85"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Flutter & Mobile Development</span><span class="text-xs text-zinc-500">90%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Python & Data Science</span><span class="text-xs text-zinc-500">88%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="88"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Research & Technical Writing</span><span class="text-xs text-zinc-500">80%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="80"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Embedded Systems & Robotics</span><span class="text-xs text-zinc-500">72%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="72"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2"><span class="text-sm text-zinc-300 font-medium">Web Development</span><span class="text-xs text-zinc-500">78%</span></div>
+                            <div class="h-px bg-white/5 relative"><div class="skill-bar-fill" data-width="78"></div></div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-lg font-bold text-white mt-10 mb-4">Honors & Awards</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="cert-card border-yellow-500/20">
+                            <i class="fas fa-trophy text-yellow-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">Champion</div>
+                            <div class="text-xs text-zinc-500">?????? ?????? ?????????????? ????????</div>
+                        </div>
+                        <div class="cert-card border-yellow-500/20">
+                            <i class="fas fa-trophy text-yellow-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">Champion</div>
+                            <div class="text-xs text-zinc-500">???????? ???????????? ????????????????????????</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-medal text-zinc-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">1st Runner Up</div>
+                            <div class="text-xs text-zinc-500">DBMS Project Show</div>
+                        </div>
+                        <div class="cert-card">
+                            <i class="fas fa-medal text-zinc-400 mb-2"></i>
+                            <div class="text-sm font-bold text-white">1st Runner Up</div>
+                            <div class="text-xs text-zinc-500">Software Engineering Lab</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="tools" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">My Arsenal</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-12">Tech <span class="text-zinc-600">&amp; Frameworks</span></h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl group-hover:scale-110 transition-transform"><i class="fab fa-python"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Python</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-brain"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">TensorFlow</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-sky-500/10 flex items-center justify-center text-sky-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-mobile-alt"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Flutter</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-microchip"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Robotics</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-chart-bar"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Data Science</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center text-violet-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-eye"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Computer Vision</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-yellow-500/10 flex items-center justify-center text-yellow-400 text-2xl group-hover:scale-110 transition-transform"><i class="fab fa-js"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">JavaScript</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-fire"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">PyTorch</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-database"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">SQL / NoSQL</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-2xl group-hover:scale-110 transition-transform"><i class="fab fa-git-alt"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Git</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-robot"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">LLMs / VLMs</span></div>
+                <div class="card p-6 flex flex-col items-center gap-3 text-center group"><div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-server"></i></div><span class="text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">Firebase</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- EXPERIENCE --- -->
+    <section id="experience" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <div class="section-label">Work History</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-12">Experience &amp; <span class="text-zinc-600">Roles</span></h2>
+
+            <div class="space-y-6">
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-primary/15 flex items-center justify-center text-primary flex-shrink-0"><i class="fas fa-flask"></i></div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Head of Research Unit</h3>
+                                <p class="text-sm text-zinc-500">UIU App Forum · Full-time · On-site</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-primary/10 text-primary border border-primary/20">Nov 2025 - Present</span>
+                            <p class="text-xs text-zinc-600 mt-1">Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Led research-based and academic initiatives, supervising juniors and coordinating interdisciplinary collaborations.</p>
+                </div>
+
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-amber-500/15 flex items-center justify-center text-amber-400 flex-shrink-0"><i class="fas fa-chart-line"></i></div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Associate - Academic &amp; Growth</h3>
+                                <p class="text-sm text-zinc-500">UIU App Forum · Full-time · On-site</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-amber-500/10 text-amber-400 border border-amber-500/20">Sep 2024 - Nov 2025</span>
+                            <p class="text-xs text-zinc-600 mt-1">Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Organized workshops and technical sessions, supporting community growth and academic outreach.</p>
+                </div>
+
+                <div class="exp-card p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-green-500/15 flex items-center justify-center text-green-400 flex-shrink-0"><i class="fas fa-code"></i></div>
+                            <div>
+                                <h3 class="font-display font-bold text-white">Junior Executive</h3>
+                                <p class="text-sm text-zinc-500">UIU App Forum · On-site</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="badge bg-green-500/10 text-green-400 border border-green-500/20">Aug 2023 - Sep 2024</span>
+                            <p class="text-xs text-zinc-600 mt-1">Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Supported technical and academic operations, app development efforts, and event coordination.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- TIMELINE --- -->
+    <section id="timeline" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <div class="section-label">My Journey</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-16">Education &amp; <span class="text-zinc-600">Milestones</span></h2>
+
+            <div class="relative pl-10">
+                <div class="timeline-line"></div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">B.Sc. in Computer Science & Engineering</h3>
+                            <span class="badge bg-primary/10 text-primary border border-primary/20">2022 - Present</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">United International University · Dhaka, Bangladesh</p>
+                        <p class="text-sm text-zinc-400">Focused on AI, machine learning, and computer vision with active research and competition contributions.</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#06b6d4"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">HSC - Science</h3>
+                            <span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">2020</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">Adhyapak Abdul Majid College</p>
+                        <p class="text-sm text-zinc-400">Completed higher secondary education in science before starting CSE at UIU.</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#ec4899"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">SSC - Science</h3>
+                            <span class="badge bg-pink-500/10 text-pink-400 border border-pink-500/20">2018</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">Homna Adarsha High School</p>
+                        <p class="text-sm text-zinc-400">Built a strong foundation in science and mathematics.</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#f59e0b"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">Head of Research Unit</h3>
+                            <span class="badge bg-amber-500/10 text-amber-400 border border-amber-500/20">Nov 2025 - Present</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">UIU App Forum</p>
+                        <p class="text-sm text-zinc-400">Leading research initiatives and mentoring research contributors in the forum.</p>
+                    </div>
+                </div>
+
+                <div class="relative mb-12">
+                    <div class="absolute -left-10 top-1"><div class="timeline-dot" style="background:#a3e635"></div></div>
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="font-display font-bold text-white text-lg">IEEE Publication - AutoTrack</h3>
+                            <span class="badge bg-green-500/10 text-green-400 border border-green-500/20">2024 · TENSYMP</span>
+                        </div>
+                        <p class="text-sm text-zinc-500 mb-3">IEEE · Document 11144993</p>
+                        <p class="text-sm text-zinc-400">Published vehicle detection and tracking research using deep learning on CCTV data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- RESEARCH --- -->
+    <section id="projects" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">My Work</div>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-white mb-2">Research &amp; <span class="text-zinc-600">Development</span></h2>
+                    <p class="text-zinc-500 text-sm">Click any card for details.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="tag cursor-pointer hover:border-primary/50 hover:text-white transition-all active-filter" onclick="filterProjects('all', this)">All</button>
+                    <button class="tag cursor-pointer hover:border-primary/50 hover:text-white transition-all" onclick="filterProjects('research', this)">Research</button>
+                    <button class="tag cursor-pointer hover:border-primary/50 hover:text-white transition-all" onclick="filterProjects('dev', this)">Dev</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('autotrack')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><i class="fas fa-check-circle mr-1"></i>IEEE Published</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2 flex-grow">AutoTrack</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Vehicle detection &amp; route tracking from CCTV images using deep learning on a novel dataset.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Deep Learning</span><span class="tag">CV</span><span class="tag">IEEE</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('phylab')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-purple-500/10 text-purple-400 border border-purple-500/20"><i class="fas fa-hourglass-half mr-1"></i>Under Review</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">PhysiSenseVLR</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Multimodal VLM system for physics lab instrument comprehension in education.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">VLM</span><span class="tag">Multimodal</span><span class="tag">EdTech</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('dengue')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-blue-500/10 text-blue-400 border border-blue-500/20"><i class="fas fa-paper-plane mr-1"></i>Under Review</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">Dengue Diagnosis ML</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Interpretable ML for dengue diagnosis based on blood test patterns — explainable AI for healthcare.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">XAI</span><span class="tag">Healthcare</span><span class="tag">ML</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="research" onclick="openProjModal('defectomcu')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"><i class="fas fa-cog fa-spin mr-1"></i>In Progress</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">DefectoMCU</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Vision-based framework for automated physical defect detection in microcontroller boards.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Defect Detection</span><span class="tag">DL</span><span class="tag">AOI</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('uiutools')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"><i class="fas fa-globe mr-1"></i>Live</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">UIU Student Tools</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Academic calculator, tuition estimator &amp; study tools for UIU students. Used by hundreds.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Web Dev</span><span class="tag">EdTech</span><span class="tag">Utility</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('unitools')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"><i class="fas fa-wrench mr-1"></i>Live</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">UniTools</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Utility suite for students — calculators, small productivity tools, and quick helpers.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Vercel</span><span class="tag">Utilities</span><span class="tag">EdTech</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('execode')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-orange-500/10 text-orange-400 border border-orange-500/20"><i class="fas fa-code mr-1"></i>Platform</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">ExeCode</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Competitive programming platform with compiler, problem sets &amp; leaderboard.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">CP</span><span class="tag">Platform</span><span class="tag">Algorithms</span></div>
+                </div>
+
+                <div class="proj-card p-6 flex flex-col" data-category="dev" onclick="openProjModal('germanvpd')">
+                    <div class="flex justify-between mb-4"><span class="badge bg-violet-500/10 text-violet-400 border border-violet-500/20"><i class="fas fa-rocket mr-1"></i>Live</span><i class="fas fa-external-link-alt text-zinc-600 text-xs"></i></div>
+                    <h3 class="font-display font-bold text-white mb-2">German-VPD</h3>
+                    <p class="text-zinc-500 text-sm mb-4 flex-grow">Live development project hosted on Vercel with a modern product-style experience.</p>
+                    <div class="flex gap-2 flex-wrap mt-auto pt-4 border-t border-white/5"><span class="tag">Vercel</span><span class="tag">Live</span><span class="tag">Web App</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GITHUB CONTRIBUTIONS -->
+    <section id="github" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">GitHub Activity</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-10">GitHub <span class="text-zinc-600">Contribution</span></h2>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-6">
+                <a href="https://github.com/musfiqurR661" target="_blank" class="card p-5 lg:col-span-2 overflow-hidden">
+                    <img src="/https://ghchart.rshah.org/7c3aed/musfiqurR661" alt="GitHub Contribution Graph" class="w-full rounded-xl bg-white p-2">
+                </a>
+                <a href="https://github.com/musfiqurR661" target="_blank" class="card p-5 flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-zinc-500 mb-3">Profile Snapshot</p>
+                        <h3 class="font-display text-2xl font-bold text-white">musfiqurR661</h3>
+                        <p class="text-zinc-500 text-sm mt-2">Open source, research repositories, and production-ready backend systems.</p>
+                    </div>
+                    <span class="btn-outline mt-5 text-center !py-2.5">Open GitHub Profile</span>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <img id="github-stats-live" src="/https://github-readme-stats.vercel.app/api?username=musfiqurR661&show_icons=true&theme=transparent&title_color=a78bfa&text_color=d4d4d8&icon_color=f59e0b&border_color=27272a" alt="GitHub Stats" class="card p-3 w-full">
+                <img id="github-streak-live" src="/https://github-readme-streak-stats.herokuapp.com?user=musfiqurR661&theme=dark&ring=f59e0b&fire=f59e0b&currStreakLabel=a78bfa&background=09090b&border=27272a" alt="GitHub Streak" class="card p-3 w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">Gallery</div>
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-white mb-2">Life Timeline <span class="text-zinc-600">Through Frames</span></h2>
+                </div>
+                <div class="gallery-tabs-shell">
+                    <button class="gallery-nav" id="gallery-nav-left" type="button" aria-label="Previous gallery category" onclick="scrollGalleryTabs(-1)">
+                        <i class="fas fa-chevron-left text-xs"></i>
+                    </button>
+                    <div class="gallery-tabs-viewport">
+                        <div class="gallery-tabs" id="gallery-tabs">
+                    <button class="gallery-tab active" data-tone="pink" onclick="filterGallery('best-moments', this)">
+                        <img src="/img/gallery/best-moments/me.jpg" alt="Best moments" class="gallery-tab-thumb">
+                        <span>Best Moments</span>
+                    </button>
+                    <button class="gallery-tab" data-tone="blue" onclick="filterGallery('projects', this)">
+                        <img src="/img/gallery/projects/baby%20neo.jpg" alt="Projects" class="gallery-tab-thumb">
+                        <span>Projects</span>
+                    </button>
+                    <button class="gallery-tab" data-tone="green" onclick="filterGallery('uiu', this)">
+                        <img src="/img/gallery/uiu/fydp.jpg" alt="UIU" class="gallery-tab-thumb">
+                        <span>UIU</span>
+                    </button>
+                    <button class="gallery-tab" data-tone="yellow" onclick="filterGallery('others', this)">
+                        <img src="/img/gallery/others/blue_buddy.jpg" alt="Others" class="gallery-tab-thumb">
+                        <span>Others</span>
+                    </button>
+                        </div>
+                    </div>
+                    <button class="gallery-nav" id="gallery-nav-right" type="button" aria-label="Next gallery category" onclick="scrollGalleryTabs(1)">
+                        <i class="fas fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/baby%20neo.jpg" alt="Project image baby neo">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Baby Neo</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/bcrypt.jpg" alt="Project image bcrypt">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Bcrypt</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/pharmbrew.jpg" alt="Project image pharmbrew">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">PharmBrew</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/pharmbrew2.jpg" alt="Project image pharmbrew 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">PharmBrew 2</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/smart%20crciStd.jpg" alt="Project image smart crciStd">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Smart CRCi Std</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/smart%20crcStd%20main.jpg" alt="Project image smart crcStd main">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Smart CRC Std Main</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/SW.jpg" alt="Project image SW">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">SW</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/sw2.jpg" alt="Project image sw2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">SW 2</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="projects">
+                    <img src="/img/gallery/projects/zz.jpg" alt="Project image zz">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">ZZ</p><p class="text-xs text-zinc-500 mt-1">Projects timeline</p></div>
+                </article>
+
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="/img/gallery/best-moments/cox_me.jpg" alt="Best moment cox me">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Cox Me</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="/img/gallery/best-moments/me.jpg" alt="Best moment me">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Me</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="/img/gallery/best-moments/me2.jpg" alt="Best moment me2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Me 2</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="/img/gallery/best-moments/nijum_me.jpg" alt="Best moment nijum me">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nijum Me</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="best-moments">
+                    <img src="/img/gallery/best-moments/nijum_me2.jpg" alt="Best moment nijum me 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nijum Me 2</p><p class="text-xs text-zinc-500 mt-1">Best Moments timeline</p></div>
+                </article>
+
+                <!-- <article class="gallery-item" data-gallery="uiu">
+                    <img src="/img/gallery/uiu/fydp.jpg" alt="UIU FYDP">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">FYDP</p><p class="text-xs text-zinc-500 mt-1">UIU timeline</p></div>
+                </article> -->
+                <article class="gallery-item" data-gallery="uiu">
+                    <img src="/img/fav2.png" alt="UIU research community">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">UIU Research Community</p><p class="text-xs text-zinc-500 mt-1">UIU timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="uiu">
+                    <img src="/img/gallery/uiu/fydp.jpg" alt="UIU FYDP">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">FYDP</p><p class="text-xs text-zinc-500 mt-1">UIU timeline</p></div>
+                </article>
+
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/others/blue_buddy.jpg" alt="Others blue buddy">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Blue Buddy</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/others/blue_buddy2.jpg" alt="Others blue buddy 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Blue Buddy 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/others/buddy3.jpg" alt="Others buddy 3">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Buddy 3</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/others/myBoys.jpg" alt="Others my boys">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">My Boys</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/others/we%20blue.jpg" alt="Others we blue">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">We Blue</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/others/we%20blue%202.jpg" alt="Others we blue 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">We Blue 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/ahsan.jpg" alt="Tour ahsan">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Ahsan</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/ahsan2.jpg" alt="Tour ahsan 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Ahsan 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/balu.jpg" alt="Tour balu">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Balu</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/nilgiri.jpg" alt="Tour nilgiri">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nilgiri</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/nilgiri2.jpg" alt="Tour nilgiri 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nilgiri 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/nilgiri3.jpg" alt="Tour nilgiri 3">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Nilgiri 3</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/tour.jpg" alt="Tour image 1">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Tour</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/tour2.jpg" alt="Tour image 2">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Tour 2</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+                <article class="gallery-item" data-gallery="others">
+                    <img src="/img/gallery/tour/tour3.jpg" alt="Tour image 3">
+                    <div class="gallery-meta"><p class="text-sm text-white font-medium">Tour 3</p><p class="text-xs text-zinc-500 mt-1">Others timeline</p></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CERTIFICATIONS --- -->
+    <section id="certs" class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-6 reveal">
+            <div class="section-label">Credentials</div>
+            <h2 class="text-4xl font-display font-bold text-white mb-12">Courses &amp; <span class="text-zinc-600">Certifications</span></h2>
+
+            <!-- Coursera / Major platforms -->
+            <h3 class="font-display text-base font-bold text-zinc-400 mb-5 uppercase tracking-widest text-sm">Online Courses</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                <a href="#" class="cert-card flex gap-4 items-start hover:no-underline">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Deep Learning Specialization</div>
+                        <div class="text-xs text-zinc-500 mt-1">Coursera · deeplearning.ai</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Deep Learning</span></div>
+                    </div>
+                </a>
+                <a href="#" class="cert-card flex gap-4 items-start hover:no-underline">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Machine Learning</div>
+                        <div class="text-xs text-zinc-500 mt-1">Coursera · Stanford Online</div>
+                        <div class="mt-2"><span class="tag text-[10px]">ML</span></div>
+                    </div>
+                </a>
+                <a href="#" class="cert-card flex gap-4 items-start hover:no-underline">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 flex-shrink-0"><i class="fas fa-certificate"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Computer Vision with TF</div>
+                        <div class="text-xs text-zinc-500 mt-1">Coursera</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Computer Vision</span></div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Cisco -->
+            <h3 class="font-display text-base font-bold text-zinc-400 mb-5 uppercase tracking-widest text-sm">Industry Certifications</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                <a href="https://www.credly.com/badges/497114e2-ee54-4ecf-a5ea-9880135a32f5/linked_in_profile" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/15 flex items-center justify-center text-blue-300 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">CCNA: Introduction to Networks</div>
+                        <div class="text-xs text-zinc-500 mt-1">Cisco · Credly Verified</div>
+                        <div class="mt-2 flex gap-2 flex-wrap"><span class="tag text-[10px]">Networking</span><span class="tag text-[10px]">Cisco</span></div>
+                    </div>
+                </a>
+
+                <!-- Udemy -->
+                <a href="https://udemy-certificate.s3.amazonaws.com/image/UC-cf7df800-2c5c-4442-9b97-1ddc8bdaeb39.jpg?v=1685898828000" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center text-purple-300 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-graduation-cap"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Udemy Certificate</div>
+                        <div class="text-xs text-zinc-500 mt-1">Udemy · UC-cf7df800</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Udemy</span></div>
+                    </div>
+                </a>
+
+                <!-- UIU Participation -->
+                <div class="cert-card flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-violet-500/15 flex items-center justify-center text-violet-300 flex-shrink-0"><i class="fas fa-award"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Python for AI &amp; ML Workshop</div>
+                        <div class="text-xs text-zinc-500 mt-1">UIU App Forum · Certificate of Participation</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Python</span><span class="tag text-[10px]">AI/ML</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grameenphone Academy -->
+            <h3 class="font-display text-base font-bold text-zinc-400 mb-5 uppercase tracking-widest text-sm">Grameenphone Academy</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="https://www.grameenphone.academy/cert/64740eb3d859" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-search"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">UX Research Strategy with AI</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Feb 23, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">UX · AI</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/01cf5e5278b3" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-pencil-ruler"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">UX Design Decision-making with AI</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 11, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">UX Design</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/aba19eefa80e" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-file-alt"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Smart CV</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Career</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/497ebd2d20d7" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-comments"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Art of Communication</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Soft Skills</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/288852d0fee1" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Corporate Presentation Skills</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Presentation</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/260d1b8c9c42" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fab fa-linkedin-in"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">LinkedIn 101</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Professional</span></div>
+                    </div>
+                </a>
+                <a href="https://www.grameenphone.academy/cert/6172bfe4760a" target="_blank" class="cert-card flex gap-4 items-start hover:no-underline group">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 flex-shrink-0 group-hover:scale-110 transition-transform"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <div class="font-display font-bold text-white text-sm">Sharpen Your Interview Skills</div>
+                        <div class="text-xs text-zinc-500 mt-1">GP Academy · Mar 14, 2026</div>
+                        <div class="mt-2"><span class="tag text-[10px]">Career</span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CONTACT --- -->
+    <section id="contact" class="py-24 relative z-10">
+        <div class="max-w-3xl mx-auto px-6 reveal">
+            <div class="card p-10 md:p-14 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-primary/15 blur-[80px] pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="section-label justify-center">Get in Touch</div>
+                    <h2 class="text-4xl md:text-5xl font-display font-extrabold text-white mb-4 leading-tight">
+                        Let's Innovate<br><span class="text-grad">Together</span>
+                    </h2>
+                    <p class="text-zinc-500 mb-8 max-w-sm mx-auto">Interested in my research or want to collaborate on a project? I'm just a message away.</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <a href="mailto:musfiqurm661@gmail.com" class="btn-primary inline-flex items-center gap-2">
+                            musfiqurm661@gmail.com <i class="fas fa-paper-plane text-xs"></i>
+                        </a>
+                        <a href="#" onclick="requestCVByEmail(event)" class="btn-outline inline-flex items-center gap-2">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    </div>
+                    <div class="mt-6 text-sm text-zinc-500"><i class="fas fa-phone mr-2 text-zinc-600"></i>+880 1744-106266</div>
+
+                    <div class="mt-10 flex justify-center gap-5 pt-6 border-t border-white/5">
+                        <a href="https://github.com/musfiqurR661" target="_blank" class="text-zinc-500 hover:text-white text-2xl transition-colors"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/musfiqur661/" target="_blank" class="text-zinc-500 hover:text-blue-400 text-2xl transition-colors"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/musfiq661/" target="_blank" class="text-zinc-500 hover:text-blue-500 text-2xl transition-colors"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="text-center mt-10 text-zinc-700 text-sm">
+                <p>&copy; 2026 Md Musfiqur Rahman · Built with <span class="text-primary">curiosity</span> &amp; late nights. V 1.0.1</p>
+            </footer>
+        </div>
+    </section>
+
+    <!-- --- PROFILE MODAL --- -->
+    <div id="profile-modal" class="modal-backdrop">
+        <div class="absolute inset-0" onclick="closeProfileModal()"></div>
+        <div class="modal-box" id="profile-modal-box">
+            <button onclick="closeProfileModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-20"><i class="fas fa-times text-xs"></i></button>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-64 bg-white/3 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-white/5 flex-shrink-0">
+                    <div class="w-24 h-24 rounded-full p-0.5 bg-gradient-to-br from-primary to-amber-400 mb-4">
+                        <img src="/img/musfiq_2.png" class="w-full h-full rounded-full bg-zinc-900 object-cover" alt="Profile">
+                    </div>
+                    <h2 class="font-display font-bold text-white text-lg">Md Musfiqur Rahman</h2>
+                    <p class="text-xs text-zinc-500 mb-4 mt-1">Head of Research · UIU App Forum</p>
+                    <div class="flex gap-4 mb-6">
+                        <a href="https://github.com/musfiqurR661" target="_blank" class="text-zinc-500 hover:text-white text-lg"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/musfiqur661/" target="_blank" class="text-zinc-500 hover:text-blue-400 text-lg"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/musfiq661/" target="_blank" class="text-zinc-500 hover:text-blue-500 text-lg"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <div class="text-left w-full">
+                        <h4 class="text-white text-xs font-bold mb-2 uppercase tracking-widest">Research Interests</h4>
+                        <ul class="text-zinc-500 text-xs space-y-1">
+                            <li>· Machine Learning &amp; AI</li>
+                            <li>· Computer Vision</li>
+                            <li>· Biomedical Informatics</li>
+                            <li>· Robotics &amp; Embedded Systems</li>
+                        </ul>
+                        <div class="mt-5 pt-4 border-t border-white/5 text-xs text-zinc-500 space-y-1">
+                            <p><i class="fas fa-phone mr-2 text-primary"></i>01744106266</p>
+                            <p><i class="fas fa-envelope mr-2 text-primary"></i>musfiqurm661@gmail.com</p>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" onclick="requestCVByEmail(event)" class="btn-primary text-xs !py-2 !px-4 flex items-center justify-center gap-2 w-full">
+                                <i class="fas fa-download"></i> Download CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 p-8 overflow-y-auto max-h-[60vh]">
+                    <h3 class="font-display font-bold text-white text-lg mb-4">Honors &amp; Awards</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="cert-card border-yellow-500/20"><i class="fas fa-trophy text-yellow-400 mb-2"></i><div class="font-bold text-white text-sm">Champion</div><div class="text-xs text-zinc-500">?????? ?????? ?????????????? ????????</div></div>
+                        <div class="cert-card border-yellow-500/20"><i class="fas fa-trophy text-yellow-400 mb-2"></i><div class="font-bold text-white text-sm">Champion</div><div class="text-xs text-zinc-500"> ???????? ???????????? ????????????????????????</div></div>
+                        <div class="cert-card"><i class="fas fa-medal text-zinc-400 mb-2"></i><div class="font-bold text-white text-sm">1st Runner Up</div><div class="text-xs text-zinc-500">DBMS Project Show</div></div>
+                        <div class="cert-card"><i class="fas fa-medal text-zinc-400 mb-2"></i><div class="font-bold text-white text-sm">1st Runner Up</div><div class="text-xs text-zinc-500">Software Engineering Lab</div></div>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-lg mb-4">Visitor Essentials</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="cert-card">
+                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Time Zone &amp; Local Time</div>
+                            <div class="text-sm font-bold text-white">Dhaka (GMT+6)</div>
+                            <div id="dhaka-time" class="text-xs text-amber-300 mt-1">Loading local time...</div>
+                        </div>
+                        <div class="cert-card">
+                            <div class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Typical Reply Time</div>
+                            <div class="text-sm font-bold text-white">Within 24 hours</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- PROJECT MODAL --- -->
+    <div id="proj-modal" class="modal-backdrop">
+        <div class="absolute inset-0" onclick="closeProjModal()"></div>
+        <div class="modal-box" id="proj-modal-box">
+            <div class="flex justify-between items-center p-6 border-b border-white/5 bg-white/2">
+                <h3 class="font-display font-bold text-white text-xl" id="pm-title"></h3>
+                <button onclick="closeProjModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"><i class="fas fa-times text-xs"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <div class="w-full h-52 md:h-64 rounded-2xl overflow-hidden mb-6 bg-zinc-900 border border-white/5">
+                    <img id="pm-image" src="/" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Project">
+                </div>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1">
+                        <h4 class="font-display font-bold text-white mb-2">About</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-4" id="pm-desc"></p>
+                        <div class="flex flex-wrap gap-2" id="pm-tags"></div>
+                    </div>
+                    <div class="w-full md:w-52 flex flex-col gap-3 flex-shrink-0">
+                        <a id="pm-link" href="#" target="_blank" class="btn-primary text-center text-sm !px-4 !py-3 flex items-center justify-center gap-2">Visit <i class="fas fa-external-link-alt text-xs"></i></a>
+                        <a href="https://github.com/musfiqurR661" target="_blank" class="btn-outline text-center text-sm !px-4 !py-3 flex items-center justify-center gap-2"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV REQUEST MODAL -->
+    <div id="cv-modal" class="modal-backdrop">
+        <div class="absolute inset-0" onclick="closeCvModal()"></div>
+        <div class="modal-box max-w-lg" id="cv-modal-box">
+            <div class="p-6 md:p-8">
+                <h3 class="font-display text-2xl font-bold text-white mb-3">Request Full CV</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                    To receive the full CV, please send an email request. Click the button below and your mail app will open automatically.
+                </p>
+                <div class="cv-modal-actions">
+                    <button onclick="goToCvMail()" class="btn-primary !px-5 !py-2.5 inline-flex items-center gap-2">
+                        <i class="fas fa-envelope"></i> Open Mail
+                    </button>
+                    <button onclick="closeCvModal()" class="btn-outline !px-5 !py-2.5">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script src="/assets/js/modals.js"></script>
+    <script src="/assets/js/gallery.js"></script>
+    <script src="/assets/js/github.js"></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
+
