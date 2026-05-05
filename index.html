@@ -16,10 +16,6 @@
             document.documentElement.style.overflow = 'hidden';
             document.documentElement.classList.add('home-lock');
             if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-            const homeUrl = `${window.location.pathname}${window.location.search}#home`;
-            if (!window.location.hash) {
-                history.replaceState(null, '', homeUrl);
-            }
             window.scrollTo(0, 0);
         })();
     </script>

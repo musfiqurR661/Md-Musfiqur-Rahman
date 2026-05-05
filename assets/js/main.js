@@ -71,14 +71,6 @@
             };
 
             const ensureHomeTop = () => {
-                const home = document.getElementById('home');
-                if (!window.location.hash) {
-                    const homeUrl = `${window.location.pathname}${window.location.search}#home`;
-                    history.replaceState(null, '', homeUrl);
-                }
-                if (home) {
-                    home.scrollIntoView({ behavior: 'auto', block: 'start' });
-                }
                 window.scrollTo(0, 0);
                 requestAnimationFrame(() => {
                     window.scrollTo(0, 0);
@@ -98,12 +90,6 @@
         } else {
             document.addEventListener('DOMContentLoaded', settleHomeLanding, { once: true });
         }
-
-        window.addEventListener('hashchange', () => {
-            if (!window.location.hash) {
-                history.replaceState(null, '', `${window.location.pathname}${window.location.search}#home`);
-            }
-        });
 
     // Keep section flow aligned with navigation intent.
     const gallerySection = document.getElementById('gallery');
